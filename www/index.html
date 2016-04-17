@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>RecipeGo</title>
+
+
+    <!-- compiled css output -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="starter">
+    <ion-pane>
+      <ion-header-bar class="bar-balanced">
+        <h1 class="title">RecipeGo</h1>
+      </ion-header-bar>
+
+      <ion-content>
+        <div class="row">
+          <div class="col col-75">
+            <div class="list list-inset">
+              <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="재료 검색">
+              </label>
+            </div>
+          </div>
+          <div class="col col-25">
+            <button class="button icon ion-camera"></button>
+          </div>
+        </div>
+      
+      <div class="row">
+      <div class="col">
+      <ul class="list list-inset">
+        <li class="item">가지</li>
+        <li class="item">감자</li>
+        <li class="item">고구마</li>
+        <li class="item">돼지목살</li>
+        <li class="item">밀가루</li>
+        <li class="item">바나나</li>
+        <li class="item">바질</li>
+        <li class="item">삼겹살</li>
+        <li class="item">소세지</li>
+        <li class="item">숙주나물</li>
+        <li class="item">연어</li>
+        <li class="item">오리고기</li>
+        <li class="item">콩나물</li>
+        <li class="item">토마토</li>
+        <li class="item">파</li>
+        <li class="item">호두</li>
+        <li class="item">호박</li>
+      </ul>
+    </div>
+    
+    <div class="col">
+      <ul class="list list-inset">
+        <li class="item">돼지목살<ion-delete-button class="ion-minus-circled"></ion-delete-button></li>
+        <li class="item">숙주나물<ion-delete-button class="ion-minus-circled"></ion-delete-button></li>
+      </ul>
+      </div>
+    </div>
+    </ion-content>
+    </ion-pane>
+
+    <div class="bar bar-footer bar-energized">
+      <div class="title">
+      <button class="button button-full button-clear button-dark">Search</button>
+      </div>
+    </div>
+
+  </body>
+</html>
