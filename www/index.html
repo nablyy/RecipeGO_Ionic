@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>RecipeGo</title>
-
-
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
 
@@ -24,6 +22,8 @@
         <h1 class="title">RecipeGo</h1>
       </ion-header-bar>
 
+      <!-- <script id="index.html" type="text/ng-template">
+      <ion-view view-title="First page"> -->
       <ion-content>
         <div class="row">
           <div class="col col-75">
@@ -64,19 +64,27 @@
     
     <div class="col">
       <ul class="list list-inset">
-        <li class="item">돼지목살<ion-delete-button class="ion-minus-circled"></ion-delete-button></li>
-        <li class="item">숙주나물<ion-delete-button class="ion-minus-circled"></ion-delete-button></li>
+        <li class="item">계란<ion-delete-button class="ion-minus-circled"></ion-delete-button></li>
       </ul>
       </div>
     </div>
     </ion-content>
-    </ion-pane>
-
     <div class="bar bar-footer bar-energized">
       <div class="title">
-      <button class="button button-full button-clear button-dark">Search</button>
+      <button class="button button-full button-clear button-dark" nav-transition="none" href="/list">Search</button>
       </div>
     </div>
+   <!--  </ion-view>
+    </script>
+ -->
+    <script id="list.html" type="text/ng-template">
+    <ion-view view-title="Second page">
+      <ion-content class="padding">
+            <button class="button icon ion-ios-arrow-back" ng-click="goBack()" nav-direction="back">Go Back</button>
+      </ion-content>
+    </ion-view>
+  </script>   
+    </ion-pane>
 
   </body>
 </html>
