@@ -3,11 +3,7 @@ angular.module('starter.controllers', [])
 .controller('HomeCtrl', function($scope) {
 
   $scope.data = {
-    showDelete: false
-  };
-  $scope.moveItem = function(item, fromIndex, toIndex) {
-    $scope.items.splice(fromIndex, 1);
-    $scope.items.splice(toIndex, 0, item);
+    showDelete: true
   };
   
   $scope.onItemDelete = function(item) {
@@ -39,6 +35,6 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('ListCtrl', function($scope, $stateParams) {
+.controller('ListCtrl', function($scope) {
     console.log('list')
 });

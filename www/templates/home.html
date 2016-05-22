@@ -1,5 +1,5 @@
 <ion-view title="Home">
-  <ion-content>
+  <ion-content has-header="true">
     <div class="row">
       <div class="col col-75">
         <div class="list list-inset">
@@ -39,14 +39,18 @@
     
 	    <div class="col">
 	      <ul class="list list-inset">
-	        <li class="item">계란<ion-delete-button class="ion-minus-circled"></ion-delete-button></li>
+	      	<ion-list show-delete="data.showDelete">
+						<ion-item ng-repeat="item in items" 
+                  item="item"
+                  href="#/item/{{item.id}}" class="item-remove-animate">
+          		Item {{ item.id }}
+          		<ion-delete-button class="ion-minus-circled" 
+                             ng-click="onItemDelete(item)">
+          		</ion-delete-button>
+        		</ion-item>
+        	</ion-list>
 	      </ul>
 	    </div>
   	</div>
   </ion-content>
-  <div class="bar bar-footer bar-energized">
-    <div class="title">
-      <a class="button button-full button-clear button-dark" nav-transition="none" href="#/list">Search</a>
-    </div>
-  </div>
 </ion-view>
