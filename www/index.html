@@ -17,74 +17,9 @@
     <script src="js/app.js"></script>
   </head>
   <body ng-app="starter">
-    <ion-pane>
-      <ion-header-bar class="bar-balanced">
-        <h1 class="title">RecipeGo</h1>
-      </ion-header-bar>
-
-      <!-- <script id="index.html" type="text/ng-template">
-      <ion-view view-title="First page"> -->
-      <ion-content>
-        <div class="row">
-          <div class="col col-75">
-            <div class="list list-inset">
-              <label class="item item-input">
-                <i class="icon ion-search placeholder-icon"></i>
-                <input type="text" placeholder="재료 검색">
-              </label>
-            </div>
-          </div>
-          <div class="col col-25">
-            <button class="button icon ion-camera"></button>
-          </div>
-        </div>
-      
-      <div class="row">
-      <div class="col">
-      <ul class="list list-inset">
-        <li class="item">가지</li>
-        <li class="item">감자</li>
-        <li class="item">고구마</li>
-        <li class="item">돼지목살</li>
-        <li class="item">밀가루</li>
-        <li class="item">바나나</li>
-        <li class="item">바질</li>
-        <li class="item">삼겹살</li>
-        <li class="item">소세지</li>
-        <li class="item">숙주나물</li>
-        <li class="item">연어</li>
-        <li class="item">오리고기</li>
-        <li class="item">콩나물</li>
-        <li class="item">토마토</li>
-        <li class="item">파</li>
-        <li class="item">호두</li>
-        <li class="item">호박</li>
-      </ul>
-    </div>
-    
-    <div class="col">
-      <ul class="list list-inset">
-        <li class="item">계란<ion-delete-button class="ion-minus-circled"></ion-delete-button></li>
-      </ul>
-      </div>
-    </div>
-    </ion-content>
-    <div class="bar bar-footer bar-energized">
-      <div class="title">
-      <button class="button button-full button-clear button-dark" nav-transition="none" href="/list">Search</button>
-      </div>
-    </div>
-   <!--  </ion-view>
-    </script>
- -->
-    <script id="list.html" type="text/ng-template">
-    <ion-view view-title="Second page">
-      <ion-content class="padding">
-            <button class="button icon ion-ios-arrow-back" ng-click="goBack()" nav-direction="back">Go Back</button>
-      </ion-content>
-    </ion-view>
-  </script>   
-    </ion-pane>
-
+    <ion-header-bar class="bar-balanced">
+      <h1 class="title">RecipeGo</h1>
+    </ion-header-bar>
+    <ion-nav-view></ion-nav-view>   
   </body>
 </html>
