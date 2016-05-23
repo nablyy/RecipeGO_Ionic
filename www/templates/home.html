@@ -17,35 +17,25 @@
     <div class="row">
       <div class="col">
 	      <ul class="list list-inset">
-	        <li class="item">가지</li>
-	        <li class="item">감자</li>
-	        <li class="item">고구마</li>
-	        <li class="item">돼지목살</li>
-	        <li class="item">밀가루</li>
-	        <li class="item">바나나</li>
-	        <li class="item">바질</li>
-	        <li class="item">삼겹살</li>
-	        <li class="item">소세지</li>
-	        <li class="item">숙주나물</li>
-	        <li class="item">연어</li>
-	        <li class="item">오리고기</li>
-	        <li class="item">콩나물</li>
-	        <li class="item">토마토</li>
-	        <li class="item">파</li>
-	        <li class="item">호두</li>
-	        <li class="item">호박</li>
+	      	<ion-list>
+	      		<ion-item ng-repeat="item in items" item="item" href="#/item/{{item.id}}" class="button" ng-click="addItem()" ng-model="itemId">
+	      			Item {{ item.id }}
+	      		</ion-item>
+	      	</ion-list>
+
+	      	</ion-list>
 	      </ul>
     	</div>
     
 	    <div class="col">
 	      <ul class="list list-inset">
 	      	<ion-list show-delete="data.showDelete">
-						<ion-item ng-repeat="item in items" 
-                  item="item"
-                  href="#/item/{{item.id}}" class="item-remove-animate">
-          		Item {{ item.id }}
+						<ion-item ng-repeat="sitem in sitems" 
+                  item="sitem"
+                  href="#/sitem/{{sitem.id}}" class="item-remove-animate">
+          		Item {{ sitem.id }}
           		<ion-delete-button class="ion-minus-circled" 
-                             ng-click="onItemDelete(item)">
+                             ng-click="onItemDelete(sitem)">
           		</ion-delete-button>
         		</ion-item>
         	</ion-list>
@@ -53,4 +43,9 @@
 	    </div>
   	</div>
   </ion-content>
+  <ion-footer-bar class="bar-energized">
+    <div class="title">
+      <a class="button button-full button-clear button-dark" nav-transition="none" href="#/list">Search</a>
+    </div>
+  </ion-footer-bar>
 </ion-view>
