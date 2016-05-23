@@ -18,7 +18,7 @@
       <div class="col">
 	      <ul class="list list-inset">
 	      	<ion-list>
-	      		<ion-item ng-repeat="item in items" item="item" href="#/item/{{item.id}}" class="button" ng-click="addItem()" ng-model="itemId">
+	      		<ion-item ng-repeat="item in items" item="item" href="#/item/{{item.id}}" class="button" ng-click="addItem(item)" ng-model="itemId">
 	      			Item {{ item.id }}
 	      		</ion-item>
 	      	</ion-list>

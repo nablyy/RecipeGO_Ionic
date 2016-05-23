@@ -5,18 +5,7 @@ angular.module('starter.controllers', [])
   $scope.data = {
     showDelete: true
   };
-  
-  $scope.onItemDelete = function(sitem) {
-    $scope.sitems.splice($scope.sitems.indexOf(sitem), 1);
-  };
 
-  $scope.addItem = function () {
-    $scope.sitems.push({
-      id: $scope.itemId
-    });
-    $scope.itemId = "";
-  };
-  
   $scope.items = [
     { id: 0 },
     { id: 1 },
@@ -27,6 +16,21 @@ angular.module('starter.controllers', [])
   ];
 
   $scope.sitems = [];
+  
+  $scope.onItemDelete = function(sitem) {
+    $scope.sitems.splice($scope.sitems.indexOf(sitem), 1);
+  };
+
+  $scope.addItem = function (item) {
+    $scope.sitems.push({
+      id: item.id
+    });
+  
+  };
+
+  
+  //$scope.items = Recipe_name.query({id: $scope.itemId});
+
 })
 
 .controller('ListCtrl', function($scope) {
