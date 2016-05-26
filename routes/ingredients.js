@@ -6,7 +6,10 @@ var ingredient_id = [];
 var ingredients = [];
 
 exports.findIngredient_main = function (req, res, next) {
-  var name = req.query.name;
+  // 재료 검색창 키워드
+  var search_name = req.query.name;
+  // 선택한 재료
+  console.log(req.query)
   Recipe_ingredient.find(function(err, lists) {
     for(var i in lists) {
       if(lists[i].ingredient_type === 'main') {
@@ -34,9 +37,9 @@ exports.findIngredient_main = function (req, res, next) {
           i_name.name = temp.name;
           ingredients[i] = i_name;
           if(i==ingredient_id.length-1) {
-            if(name) {
+            if(search_name) {
               res.send(ingredients.filter(function(ingredients) {
-                return (ingredients.name).indexOf(name) > -1;
+                return (ingredients.name).indexOf(search_name) > -1;
               }));
             } else {
               res.send(ingredients);
