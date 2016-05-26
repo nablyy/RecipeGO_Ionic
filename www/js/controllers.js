@@ -1,6 +1,18 @@
 angular.module('recipeGo.controllers', [])
+    .service('myService', function() {
+        var selected_ingredients = [];
+        return {
+            set_selected_ingredients: function(selected) {
+                selected_ingredients.push(selected);
+            },
+            get_selected_ingredients: function() {
+                return selected_ingredients;
+            }
+        };
+    })
 
-    .controller('HomeCtrl', function ($scope, Ingredients) {
+    .controller('HomeCtrl', function ($scope, Ingredients, myService) {
+        $scope.selected_ingredients = [];
         $scope.searchKey = "";
 
         $scope.clearSearch = function () {
@@ -14,22 +26,24 @@ angular.module('recipeGo.controllers', [])
 
         $scope.ingredients = Ingredients.query();
 
-        $scope.selected_ingredients = [];
-
         $scope.addItem = function(ingredient) {
-            
-            $scope.selected_ingredients.push({
-                name: ingredient.name
-            });
+            myService.set_selected_ingredients(ingredient);
+            $scope.selected_ingredients = myService.get_selected_ingredients();
+            // $scope.selected_ingredients.push({
+            //     name: ingredient.name
+            // });
+            console.log($scope.selected_ingredients)
         }
 
-        $scope.onItemDelete = function(selected_ingredient) { 
+        $scope.onItemDelete = function(selected_ingredient, myService) { 
             $scope.selected_ingredients.splice($scope.selected_ingredients.indexOf(selected_ingredient), 1);
         }
+
     })
 
-    .controller('SearchCtrl', function($scope, Ingredients) {
-        console.log($scope.selected_ingredients);
+    .controller('SearchCtrl', function($scope, Ingredients, myService) {
+        console.log(myService.get_selected_ingredients())
+        Ingredients.query(myService.get_selected_ingredients())
     })
 
     .controller('RecipeDetailCtrl', function ($scope, $stateParams, Ingredients) {
