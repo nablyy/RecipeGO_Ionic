@@ -1,26 +1,23 @@
 <ion-view title="Home">
-  <ion-content has-header="true">
-    <div class="row">
-      <div class="col col-75">
-        <div class="list list-inset">
-          <label class="item item-input">
-            <i class="icon ion-search placeholder-icon"></i>
-            <input type="text" placeholder="재료 검색">
-          </label>
-        </div>
-      </div>
-      <div class="col col-25">
-        <button class="button icon ion-camera"></button>
-      </div>
-    </div>
+
+  <div class="bar bar-subheader item-input-inset">
+    <label class="item-input-wrapper">
+      <i class="icon ion-ios7-search placeholder-icon"></i>
+        <input id="searchKey" type="search" placeholder="Search" ng-model="searchKey" autocorrect="off" >
+          <button class="button button-clear" ng-click="clearSearch()">X</button>
+    </label>
+    <button class="button button-clear" ng-click="search()">Search</button>
+  </div>
+
+  <ion-content class="has-header has-subheader">
   
     <div class="row">
       <div class="col">
 	      <ul class="list list-inset">
 	      	<ion-list>
-	      		<ion-item ng-repeat="item in items" item="item" href="#/item/{{item.id}}" class="button" ng-click="addItem(item)" ng-model="itemId">
-	      			Item {{ item.id }}
-	      		</ion-item>
+	      		<ion-item ng-repeat="ingredient in ingredients" type="item-text-wrap" href="#/ingredient/{{ingredient.id}}" ng-click="addItem(ingredient)">
+            {{ingredient.name}}
+          </ion-item>
 	      	</ion-list>
 
 	      	</ion-list>
@@ -29,15 +26,12 @@
     
 	    <div class="col">
 	      <ul class="list list-inset">
-	      	<ion-list show-delete="data.showDelete">
-						<ion-item ng-repeat="sitem in sitems" 
-                  item="sitem"
-                  href="#/sitem/{{sitem.id}}" class="item-remove-animate">
-          		Item {{ sitem.id }}
-          		<ion-delete-button class="ion-minus-circled" 
-                             ng-click="onItemDelete(sitem)">
-          		</ion-delete-button>
-        		</ion-item>
+	      	<ion-list show-delete="true">
+						<ion-item ng-repeat="selected_ingredient in selected_ingredients" item="selected_ingredient" href="#/selected_ingredient/{{selected_ingredient.id}}" type="item-text-wrap" class="item-remove-animate">
+            {{selected_ingredient.name}}
+            <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(selected_ingredient)">
+            </ion-delete-button>
+          </ion-item>
         	</ion-list>
 	      </ul>
 	    </div>

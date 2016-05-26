@@ -1,38 +1,41 @@
-angular.module('starter.controllers', [])
+angular.module('recipeGo.controllers', [])
 
-.controller('HomeCtrl', function($scope) {
+    .controller('HomeCtrl', function ($scope, Ingredients) {
+        $scope.searchKey = "";
 
-  $scope.data = {
-    showDelete: true
-  };
+        $scope.clearSearch = function () {
+            $scope.searchKey = "";
+            $scope.ingredients = Ingredients.query();
+        }
 
-  $scope.items = [
-    { id: 0 },
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 }
-  ];
+        $scope.search = function () {
+            $scope.ingredients = Ingredients.query({name: $scope.searchKey});
+        }
 
-  $scope.sitems = [];
-  
-  $scope.onItemDelete = function(sitem) {
-    $scope.sitems.splice($scope.sitems.indexOf(sitem), 1);
-  };
+        $scope.ingredients = Ingredients.query();
 
-  $scope.addItem = function (item) {
-    $scope.sitems.push({
-      id: item.id
-    });
-  
-  };
+        $scope.selected_ingredients = [];
 
-  
-  //$scope.items = Recipe_name.query({id: $scope.itemId});
+        $scope.addItem = function(ingredient) {
+            
+            $scope.selected_ingredients.push({
+                name: ingredient.name
+            });
+        }
 
-})
+        $scope.onItemDelete = function(selected_ingredient) { 
+            $scope.selected_ingredients.splice($scope.selected_ingredients.indexOf(selected_ingredient), 1);
+        }
+    })
 
+    .controller('SearchCtrl', function($scope, Ingredients) {
+        console.log($scope.selected_ingredients);
+    })
+
+    .controller('RecipeDetailCtrl', function ($scope, $stateParams, Ingredients) {
+        console.log('reports');
+        $scope.ingredients = Ingredients.get({ingredientId: $stateParams.ingredientId, data: 'reports'});
+    })
 .controller('ListCtrl', function($scope) {
     console.log('list')
 });

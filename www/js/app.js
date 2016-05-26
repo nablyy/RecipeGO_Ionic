@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('recipeGo', ['ionic', 'recipeGo.controllers', 'recipeGo.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -23,6 +23,20 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   });
 })
 
+.factory('API', function($http) {
+  var api = {};
+  var baseURL = 'https://vision.googleapis.com/v1/images:annotate?key=\(AIzaSyAvnQy9Y2zl86brwaiu6sl08YgujOA0RoI)';
+ 
+  api.sendimage = function(images) {
+    return $http.post(baseURL + '/images', {
+      // "to": to,
+      // "text": text
+    });
+  };
+ 
+  return api;
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
   
   $stateProvider
@@ -35,6 +49,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       url: '/list',
       templateUrl: 'templates/list.html',
       controller: 'ListCtrl'
+    })
+    .state('search', {
+        url: '/search',
+        templateUrl: 'templates/recipe_list.html',
+        controller: 'SearchCtrl'
+    })
+
+    .state('recipe', {
+        url: '/search/:recipeId',
+        templateUrl: 'templates/recipe_detail.html',
+        controller: 'RecipeDetailCtrl'
     });
   
   $urlRouterProvider.otherwise("/home");
