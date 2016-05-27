@@ -32,7 +32,7 @@ angular.module('recipeGo.controllers', [])
             // $scope.selected_ingredients.push({
             //     name: ingredient.name
             // });
-            console.log($scope.selected_ingredients)
+            // console.log($scope.selected_ingredients)
         }
 
         $scope.onItemDelete = function(selected_ingredient, myService) { 
@@ -41,9 +41,9 @@ angular.module('recipeGo.controllers', [])
 
     })
 
-    .controller('SearchCtrl', function($scope, Ingredients, myService) {
-        console.log(myService.get_selected_ingredients())
-        Ingredients.query(myService.get_selected_ingredients())
+    .controller('SearchCtrl', function($scope, Recipes, myService) {
+        // console.log(myService.get_selected_ingredients())
+        Recipes.query(myService.get_selected_ingredients());
     })
 
     .controller('RecipeDetailCtrl', function ($scope, $stateParams, Ingredients) {

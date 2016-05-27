@@ -9,7 +9,7 @@ exports.findIngredient_main = function (req, res, next) {
   // 재료 검색창 키워드
   var search_name = req.query.name;
   // 선택한 재료
-  console.log(req.query)
+  // console.log(req.query)
   Recipe_ingredient.find(function(err, lists) {
     for(var i in lists) {
       if(lists[i].ingredient_type === 'main') {
