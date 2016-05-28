@@ -70,7 +70,7 @@ angular.module('recipeGo.controllers', [])
     .controller('SearchCtrl', function($scope, Recipes, myService) {
         // console.log(myService.get_selected_ingredients())
         Recipes.query(myService.get_selected_ingredients());
-        console.log(Recipes.query())
+        
     })
 
     .controller('RecipeDetailCtrl', function ($scope, $stateParams, Ingredients) {
