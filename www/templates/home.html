@@ -9,8 +9,14 @@
     <button class="button button-clear" ng-click="search()">Search</button>
   </div>
 
-  <ion-content class="has-header has-subheader">
-  
+  <ion-content class="has-header has-subheader" ng-controller="ThisCtrl">
+    
+    <div class="row">
+      <div class="col">
+        <button class="button button-full button-energized" ng-click="getImageSaveContact()">Add image</button>
+        <img ng-src="{{collection.selectedImage}}" style="width:100%; height: auto;"/>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
 	      <ul class="list list-inset">

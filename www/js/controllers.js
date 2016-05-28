@@ -11,6 +11,36 @@ angular.module('recipeGo.controllers', [])
         };
     })
 
+    .controller('ThisCtrl', function($scope, $cordovaImagePicker) {
+
+        $scope.collection = {
+            selectedImage : ''
+        };
+        $scope.getImageSaveContact = function() {  
+          var options = {
+           maximumImagesCount: 10,
+           width: 800,
+           height: 800,
+           quality: 80
+          };
+
+          $cordovaImagePicker.getPictures(options)
+            .then(function (results) {
+              for (var i = 0; i < results.length; i++) {
+                console.log('Image URI: ' + results[i]);
+                $scope.collection.selectedImage = results[i];
+
+                window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){  // Encode URI to Base64 needed for contacts plugin
+                    $scope.collection.selectedImage = base64;
+                    $scope.addContact();    // Save contact
+                });
+              }
+            }, function(error) {
+              // error getting photos
+            });
+        }
+    })
+
     .controller('HomeCtrl', function ($scope, Ingredients, myService) {
         $scope.selected_ingredients = [];
         $scope.searchKey = "";
@@ -29,10 +59,6 @@ angular.module('recipeGo.controllers', [])
         $scope.addItem = function(ingredient) {
             myService.set_selected_ingredients(ingredient);
             $scope.selected_ingredients = myService.get_selected_ingredients();
-            // $scope.selected_ingredients.push({
-            //     name: ingredient.name
-            // });
-            // console.log($scope.selected_ingredients)
         }
 
         $scope.onItemDelete = function(selected_ingredient, myService) { 
@@ -44,12 +70,10 @@ angular.module('recipeGo.controllers', [])
     .controller('SearchCtrl', function($scope, Recipes, myService) {
         // console.log(myService.get_selected_ingredients())
         Recipes.query(myService.get_selected_ingredients());
+        console.log(Recipes.query())
     })
 
     .controller('RecipeDetailCtrl', function ($scope, $stateParams, Ingredients) {
         console.log('reports');
         $scope.ingredients = Ingredients.get({ingredientId: $stateParams.ingredientId, data: 'reports'});
-    })
-.controller('ListCtrl', function($scope) {
-    console.log('list')
-});
+    });
