@@ -4,9 +4,6 @@ var Recipe_name = require('../models/Recipe_name');
 
 var fs = require('fs');
 
-
-
-
 // read all recipes
 function readFile(callback) {
   fs.readFile('./models/items.json', 'utf8', function(error, data) {
@@ -48,15 +45,26 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
   var recipes_name = [];
   var obj = [];
   var last = [];
+
+  var select = [];
   var sortFilter = [];
   var categoryFilter = [];
-  var select = [];
   var temp = [];
 
   select = req.query.ingredients;
+  sortFilter = req.query.sortFilter;
+  categoryFilter = req.query.categoryFilter;
+
+  console.log(sortFilter);
+  console.log(categoryFilter);
+
   // parse select
-  for(var i in select) {
-    temp[i] = JSON.parse(select[i]);
+  if(select[0]=='{') {
+    temp[0] = JSON.parse(select);
+  } else {
+    for(var i in select) {
+      temp[i] = JSON.parse(select[i]);
+    }
   }
 
   // if ingredient name is duplicate, remove it
@@ -117,11 +125,17 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
       console.log(recipes_id);
       console.log('---------');
 
+
+
       Recipe_name.find(function(err, lists) {
         for(var j in lists) {
           for(var i in recipes_id) {
             if(lists[j].id==recipes_id[i]) {
-              recipes_name[recipes_name.length] = lists[j];
+              if(lists[j].field==categoryFilter) {
+                console.log(categoryFilter);
+                console.log(lists[j].field);
+                recipes_name[recipes_name.length] = lists[j];
+              }
             }
           }
         }
@@ -141,13 +155,5 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
       });
     });
   });
-  if (req.query.sortFilter != undefined) {
-    sortFilter = req.query.sortFilter;
-  }
-  if (req.query.categoryFilter != undefined) {
-    categoryFilter = req.query.categoryFilter;
-  }
 
-  console.log(sortFilter)
-  console.log(categoryFilter)
 }
