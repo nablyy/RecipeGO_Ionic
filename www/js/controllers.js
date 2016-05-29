@@ -76,14 +76,13 @@ angular.module('recipeGo.controllers', [])
         $scope.sortFilter = {};
         $scope.categoryFilter = {};
 
-        Recipes.query({ingredients: myService.get_selected_ingredients()});
-
         // 필터 보내는 함수
         $scope.setFilter = function () {
             console.log($scope.sortFilter.searchText);
             console.log($scope.categoryFilter.searchText);
             Recipes.query({sortFilter: $scope.sortFilter.searchText});
             Recipes.query({categoryFilter: $scope.categoryFilter.searchText});
+            Recipes.query({ingredients: myService.get_selected_ingredients()});
         }
         
     })
