@@ -50,7 +50,8 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
   var last = [];
 
   var select = [];
-  select = req.query;
+  select = req.query.ingredients;
+  console.log(select)
 
   var temp = [];
 

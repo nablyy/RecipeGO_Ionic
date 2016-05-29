@@ -55,6 +55,7 @@ angular.module('recipeGo.controllers', [])
         }
 
         $scope.search = function () {
+            console.log($scope.searchKey)
             $scope.ingredients = Ingredients.query({name: $scope.searchKey});
         }
 
@@ -72,13 +73,17 @@ angular.module('recipeGo.controllers', [])
     })
 
     .controller('SearchCtrl', function($scope, Recipes, myService) {
-        console.log(myService.get_selected_ingredients())
-        Recipes.query(myService.get_selected_ingredients());
+        $scope.sortFilter = {};
+        $scope.categoryFilter = {};
+
+        Recipes.query({ingredients: myService.get_selected_ingredients()});
 
         // 필터 보내는 함수
         $scope.setFilter = function () {
-            console.log("setFilter")
-            console.log(categoryFilter)
+            console.log($scope.sortFilter.searchText);
+            console.log($scope.categoryFilter.searchText);
+            Recipes.query({sortFilter: $scope.sortFilter.searchText});
+            Recipes.query({categoryFilter: $scope.categoryFilter.searchText});
         }
         
     })
