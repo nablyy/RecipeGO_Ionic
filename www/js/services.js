@@ -4,7 +4,7 @@ angular.module('recipeGo.services', ['ngResource'])
         return $resource('/ingredients');
     })
     .factory('Recipes', function($resource) {
-    	return $resource('/recipes');
+    	return $resource('/recipes/:name');
     })
     .factory('$cordovaImagePicker', ['$q', '$window', function ($q, $window) {
 

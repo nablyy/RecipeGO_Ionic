@@ -5,7 +5,7 @@
   </ion-nav-bar>
 
   <ion-content class="has-header">
-    <div class="bar bar-subheader">
+    <!-- <div class="bar bar-subheader">
       <label class="item item-input item-select">
         <div class="input-label">
           레시피 정렬 순서
@@ -44,7 +44,72 @@
           <option>기타</option>
         </select>
       </label>
-    </div>
+    </div> -->
+    <h1>a</h1>
+
+    <table style="width:100%" border="1px solid">
+      <thead>
+        <tr>
+          <td>
+            <label class="item item-input item-select">
+              <div class="input-label">레시피 정렬</div>
+              <select id="sortFilter" type="setFilter" ng-model="sortFilter.searchText">
+                <option selected="true">간단한순으로</option>
+                <option>복잡한순으로</option>
+              </select>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="item item-input item-select">
+              <div class="input-label">요리 방법</div>
+              <select id="categoryFilter" type="setFilter" ng-model="categoryFilter.searchText">
+                <option selected>All</option>
+                <option>밥,죽,스프</option>recipes
+                <option>만두,면류</option>
+                <option>국</option>
+                <option>찌개,전골,탕</option>
+                <option>조림</option>
+                <option>볶음</option>
+                <option>구이</option>
+                <option>튀김,커틀릿</option>
+                <option>부침</option>
+                <option>찜</option>
+                <option>생채,숙채,샐러드</option>
+                <option>김치,밑반찬</option>
+                <option>떡,한과</option>
+                <option>빵,과자</option>
+                <option>도시락,간식</option>
+                <option>음료</option>
+                <option>후식</option>
+                <option>양념장</option>
+                <option>그라탕,리조또</option>
+                <option>샌드위치,햄버거</option>
+                <option>기타</option>
+              </select>
+            </label>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <script type="text/javascript">
+          for(var i=0;i<recipes.length; i++) {
+            document.write("<tr>");
+            document.write("<td>AAA</td>");
+            document.write("</tr>");
+          }
+        </script>
+        <tr>
+          <td><a href="#/recipe/{{recipes[0].name}}"><img ng-src="{{recipes[0].img}}" style="width:50%; height: auto;"/></a></td>
+          <td><h3>{{recipes[0].name}}</h3></td>
+        </tr>
+        <tr>
+          <td><a href="#/recipe/{{recipes[1].name}}"><img ng-src="{{recipes[1].img}}" style="width:50%; height: auto;"/></a></td>
+          <td><h3>{{recipes[1].name}}</h3></td>
+        </tr>
+      </tbody>
+    </table>
 
   </ion-content>
 

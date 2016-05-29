@@ -15,6 +15,16 @@ angular.module('recipeGo.controllers', [])
     })
 
     .controller('ThisCtrl', function($scope, $cordovaImagePicker) {
+        var me = this;
+        me.current_image = "";
+        me.detection_type = 'LABEL_DETECTION';
+
+         me.detection_types = {
+          LABEL_DETECTION: 'label',
+          TEXT_DETECTION: 'text',
+          LOGO_DETECTION: 'logo',
+          LANDMARK_DETECTION: 'landmark'
+        };
 
         $scope.collection = {
             selectedImage : ''
@@ -72,15 +82,13 @@ angular.module('recipeGo.controllers', [])
 
     })
 
-    .controller('SearchCtrl', function($scope, Recipes, myService) {
+    .controller('SearchCtrl', function($q, $scope, Recipes, myService) {
         $scope.sortFilter = {};
         $scope.categoryFilter = {};
 
-        // 필터 보내는 함수
+        // 필터, 재료 보내는 함수
         $scope.setFilter = function () {
-            console.log($scope.sortFilter.searchText)
-            console.log($scope.categoryFilter.searchText)
-            Recipes.query({sortFilter: $scope.sortFilter.searchText,
+            $scope.recipes = Recipes.query({sortFilter: $scope.sortFilter.searchText,
                         categoryFilter: $scope.categoryFilter.searchText,
                         ingredients: myService.get_selected_ingredients()
                         });
@@ -89,6 +97,9 @@ angular.module('recipeGo.controllers', [])
     })
 
     .controller('RecipeDetailCtrl', function ($scope, $stateParams, Ingredients) {
-        console.log('reports');
-        $scope.ingredients = Ingredients.get({ingredientId: $stateParams.ingredientId, data: 'reports'});
+        console.log($stateParams)
+        $scope.recipe = Recipes.get({name: $stateParams.name})
+        // $scope.ingredients = Ingredients.get({ingredientId: $stateParams.ingredientId, data: 'reports'});
+        // $scope.recipes = Recipes.get({name: $stateParams.name});
+        console.log('RecipeDetailCtrl')
     });
