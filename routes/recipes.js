@@ -48,13 +48,12 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
   var recipes_name = [];
   var obj = [];
   var last = [];
-
+  var sortFilter = [];
+  var categoryFilter = [];
   var select = [];
-  select = req.query.ingredients;
-  console.log(select)
-
   var temp = [];
 
+  select = req.query.ingredients;
   // parse select
   for(var i in select) {
     temp[i] = JSON.parse(select[i]);
@@ -142,5 +141,13 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
       });
     });
   });
+  if (req.query.sortFilter != undefined) {
+    sortFilter = req.query.sortFilter;
+  }
+  if (req.query.categoryFilter != undefined) {
+    categoryFilter = req.query.categoryFilter;
+  }
 
+  console.log(sortFilter)
+  console.log(categoryFilter)
 }
