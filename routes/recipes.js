@@ -4,13 +4,8 @@ var Recipe_name = require('../models/Recipe_name');
 
 var fs = require('fs');
 
-var ingredients = [];
-var ingredients_id = [];
-var ingredients_name = [];
-var recipes_id = [];
-var recipes_name = [];
-var obj = [];
-var last = [];
+
+
 
 // read all recipes
 function readFile(callback) {
@@ -46,8 +41,16 @@ function readFile(callback) {
 }
 
 exports.searchRecipe = function searchRecipe(req, res, next) {
+  var ingredients = [];
+  var ingredients_id = [];
+  var ingredients_name = [];
+  var recipes_id = [];
+  var recipes_name = [];
+  var obj = [];
+  var last = [];
 
-  var select = req.query;
+  var select = [];
+  select = req.query;
 
   var temp = [];
 

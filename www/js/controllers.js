@@ -7,6 +7,9 @@ angular.module('recipeGo.controllers', [])
             },
             get_selected_ingredients: function() {
                 return selected_ingredients;
+            },
+            reset_selected_ingredients: function() {
+                selected_ingredients = [];
             }
         };
     })
@@ -44,6 +47,7 @@ angular.module('recipeGo.controllers', [])
     .controller('HomeCtrl', function ($scope, Ingredients, myService) {
         $scope.selected_ingredients = [];
         $scope.searchKey = "";
+        myService.reset_selected_ingredients();
 
         $scope.clearSearch = function () {
             $scope.searchKey = "";
@@ -68,8 +72,14 @@ angular.module('recipeGo.controllers', [])
     })
 
     .controller('SearchCtrl', function($scope, Recipes, myService) {
-        // console.log(myService.get_selected_ingredients())
+        console.log(myService.get_selected_ingredients())
         Recipes.query(myService.get_selected_ingredients());
+
+        // 필터 보내는 함수
+        $scope.setFilter = function () {
+            console.log("setFilter")
+            console.log(categoryFilter)
+        }
         
     })
 

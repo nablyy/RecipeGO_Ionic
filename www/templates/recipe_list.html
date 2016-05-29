@@ -3,12 +3,6 @@
   <ion-nav-bar class="bar-subheader">
     <ion-nav-back-button class="button-icon ion-ios7-arrow-back"></ion-nav-back-button>
     <div class="bar bar-subheader item-input-inset">
-    <label class="item-input-wrapper">
-      <i class="icon ion-ios7-search placeholder-icon"></i>
-        <input id="searchKey" type="search" placeholder="Search" ng-model="searchKey" autocorrect="off" >
-          <button class="button button-clear" ng-click="clearSearch()">X</button>
-    </label>
-    <button class="button button-clear" ng-click="search()">Search</button>
   </div>
   </ion-nav-bar>
   <ion-content>
@@ -17,7 +11,7 @@
         <div class="input-label">
           레시피 정렬 순서
         </div>
-        <select>
+        <select name="sort" ng-model="filter.sort">
           <option selected="true">간단한순으로</option>
           <option>복잡한순으로</option>
         </select>
@@ -26,7 +20,7 @@
         <div class="input-label">
           요리 방법
         </div>
-        <select>
+        <select name="category" ng-model="filter.category">
           <option selected>All</option>
           <option>밥,죽,스프</option>
           <option>만두,면류</option>
@@ -56,7 +50,7 @@
 
   <ion-footer-bar class="bar-energized">
     <div class="title">
-      <a class="button button-full button-clear button-dark" nav-transition="none" href="#/search">Search</a>
+      <a id="2" class="button button-full button-clear button-dark" nav-transition="none" href="#/search" ng-click="setFilter()">Search</a>
     </div>
   </ion-footer-bar>
 
