@@ -1,26 +1,20 @@
 
-var select = [{"name":"도라지"}, {"name":"청포묵"}, {"name":"쌀"}];
+var items = [34, 23, 12, 45, 9, 1, 24];
 
+var length = items.length;
 
-var ingredients = [];
-
-// var json = JSON.stringify(select);
-// console.log(json);
-
-for(var i in select) {
-  console.log(select[i].name);
-  ingredients[i] = select[i];
-  console.log(ingredients[i].name);
+for (var i = 0; i < length-1; i++) {
+  var min = i;
+  for (var j = i+1; j < length; j++) {
+    if(items[j] > items[min]) {
+      min = j;
+    }
+  }
+  if(min != i) {
+    var tmp = items[i];
+    items[i] = items[min];
+    items[min] = tmp;
+  }
 }
-// console.log(ingredients);
-// console.log(ingredients[1].name);
 
-// var array = json.split(",");
-// console.log(array);
-// for(var i in array){
-//   ingredients[i] = JSON.parse(array[i]);
-// }
-//
-// for(var i in ingredients) {
-//   console.log(ingredients[i].name);
-// }
+console.log(items);

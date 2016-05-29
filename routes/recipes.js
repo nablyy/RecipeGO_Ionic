@@ -122,30 +122,56 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
           recipes_id[recipes_id.length] = temp[i];
         }
       }
-      console.log(recipes_id);
-      console.log('---------');
 
-
-
+      // 카테고리 필터 적용한 레시피 아이디 탐색
       Recipe_name.find(function(err, lists) {
         for(var j in lists) {
           for(var i in recipes_id) {
             if(lists[j].id==recipes_id[i]) {
               if(lists[j].field==categoryFilter) {
-                console.log(categoryFilter);
-                console.log(lists[j].field);
                 recipes_name[recipes_name.length] = lists[j];
               }
             }
           }
         }
-        console.log(recipes_name);
+
+        // 순서 필터 적용
+        var length = recipes_name.length;
+        if(sortFilter=='간단한순으로') {
+          for (var i = 0; i < length-1; i++) {
+            var min = i;
+            for (var j = i+1; j < length; j++) {
+              if(recipes_name[j].order_count < recipes_name[min].order_count) {
+                min = j;
+              }
+            }
+            if(min != i) {
+              var tmp = recipes_name[i];
+              recipes_name[i] = recipes_name[min];
+              recipes_name[min] = tmp;
+            }
+          }
+        } else if(sortFilter=='복잡한순으로') {
+          for (var i = 0; i < length-1; i++) {
+            var max = i;
+            for (var j = i+1; j < length; j++) {
+              if(recipes_name[j].order_count > recipes_name[max].order_count) {
+                max = j;
+              }
+            }
+            if(min != i) {
+              var tmp = recipes_name[i];
+              recipes_name[i] = recipes_name[max];
+              recipes_name[max] = tmp;
+            }
+          }
+        }
 
         readFile(function(obj) {
-          for(var j in obj) {
-            for(var i in recipes_name) {
+          for(var j=0; j<recipes_name.length; j++) {
+            for(var i=0; i<recipes_name.length; i++) {
               if(obj[j].name==recipes_name[i].name) {
-                last[last.length] = obj[j];
+                last[i] = obj[j];
               }
             }
           }
