@@ -168,7 +168,7 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
         }
 
         readFile(function(obj) {
-          for(var j=0; j<recipes_name.length; j++) {
+          for(var j=0; j<obj.length; j++) {
             for(var i=0; i<recipes_name.length; i++) {
               if(obj[j].name==recipes_name[i].name) {
                 last[i] = obj[j];
