@@ -1,6 +1,7 @@
 angular.module('recipeGo.controllers', [])
     .service('myService', function() {
         var selected_ingredients = [];
+        var result_recipes = [];
         return {
             set_selected_ingredients: function(selected) {
                 selected_ingredients.push(selected);
@@ -10,6 +11,12 @@ angular.module('recipeGo.controllers', [])
             },
             reset_selected_ingredients: function() {
                 selected_ingredients = [];
+            },
+            set_recipes: function(recipes) {
+                result_recipes = recipes;
+            },
+            get_recipes: function() {
+                return result_recipes;
             }
         };
     })
@@ -82,7 +89,7 @@ angular.module('recipeGo.controllers', [])
 
     })
 
-    .controller('SearchCtrl', function($q, $scope, Recipes, myService) {
+    .controller('SearchCtrl', function($scope, Recipes, myService) {
         $scope.sortFilter = {};
         $scope.categoryFilter = {};
 
@@ -92,8 +99,15 @@ angular.module('recipeGo.controllers', [])
                         categoryFilter: $scope.categoryFilter.searchText,
                         ingredients: myService.get_selected_ingredients()
                         });
+            myService.set_recipes($scope.recipes);
         }
         
+    })
+
+    .controller('ListCtrl', function($scope, Recipes, myService) {
+        $scope.recipes = myService.get_recipes();
+        console.log($scope.recipes)
+
     })
 
     .controller('RecipeDetailCtrl', function ($scope, $stateParams, Ingredients) {

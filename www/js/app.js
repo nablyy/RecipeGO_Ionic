@@ -57,7 +57,7 @@ angular.module('recipeGo', ['ionic', 'recipeGo.controllers', 'recipeGo.services'
     })
 
     .state('recipe', {
-        url: '/search/:recipeId',
+        url: '/search/:name',
         templateUrl: 'templates/recipe_detail.html',
         controller: 'RecipeDetailCtrl'
     });

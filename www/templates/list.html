@@ -1,9 +1,25 @@
 <ion-view title="List">
-<ion-nav-bar class="bar-subheader bar-balanced">
-      <ion-nav-back-button></ion-nav-back-button>
-    </ion-nav-bar>
-  <ion-content>
-    <div class="bar bar-subheader">
+  <ion-nav-bar class="bar-subheader">
+    <ion-nav-back-button class="button-icon ion-ios7-arrow-back"></ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-content class="has-header has-subheader">
+    <div class="list card">
+      <div class="item item-avatar">
+        <h2>{{recipes[0].name}}</h2>
+        <p>{{recipes[0].field}}</p>
+      </div>
+
+      <div class="item item-body">
+        <img class="full-image" src="{{recipes[0].img}}">
+        <p>주재료: {{recipes[0].main}}</p>
+        <p>부재료: {{recipes[0].sub}}</p>
+        <p>양념: {{recipes[0].season}}</p>
+        <p>인분: {{recipes[0].amount}}</p>
+        <p>{{recipes[0].recipe}}</p>
+        </p>
+      </div>
+    <!-- <div class="bar bar-subheader">
       <label class="item item-input item-select">
         <div class="input-label">
           필요한 재료 개수
@@ -30,7 +46,8 @@
           <option>기타</option>
         </select>
       </label>
-    </div>
+    </div> -->
+
   </ion-content>
       
       <!-- <ion-content>
@@ -60,9 +77,4 @@
       </div>
       </ion-content> -->
 
-  <div class="bar bar-footer bar-energized">
-    <div class="title">
-      <button class="button button-full button-clear button-dark" nav-transition="none" href="/list">Search</button>
-    </div>
-  </div>
 </ion-view>
