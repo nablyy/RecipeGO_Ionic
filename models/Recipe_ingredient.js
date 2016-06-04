@@ -3,10 +3,7 @@ var mongoose = require('mongoose'),
 
 var schema = new Schema({
   recipe_id: {type: String, required: true},
-  ingredient_id: {type: String, required: true},
-  // main, sub, season - 3 types
-  ingredient_type: {type: String, required: true},
-  ingredient_amount: {type: String, required: true}
+  ingredient_id: {type: String, required: true}
 }, {
   toJSON: {virtuals: true },
   toObject: {virtuals: true}
