@@ -23,19 +23,19 @@ angular.module('recipeGo', ['ionic', 'recipeGo.controllers', 'recipeGo.services'
   });
 })
 
-.factory('API', function($http) {
-  var api = {};
-  var baseURL = 'https://vision.googleapis.com/v1/images:annotate?key=\(AIzaSyAvnQy9Y2zl86brwaiu6sl08YgujOA0RoI)';
+// .factory('API', function($http) {
+//   var api = {};
+//   var baseURL = 'https://vision.googleapis.com/v1/images:annotate?key=\(AIzaSyAvnQy9Y2zl86brwaiu6sl08YgujOA0RoI)';
  
-  api.sendimage = function(images) {
-    return $http.post(baseURL + '/images', {
-      // "to": to,
-      // "text": text
-    });
-  };
+//   api.sendimage = function(images) {
+//     return $http.post(baseURL + '/images', {
+//       // "to": to,
+//       // "text": text
+//     });
+//   };
  
-  return api;
-})
+//   return api;
+// })
 
 .config(function($stateProvider, $urlRouterProvider) {
   
@@ -57,7 +57,7 @@ angular.module('recipeGo', ['ionic', 'recipeGo.controllers', 'recipeGo.services'
     })
 
     .state('recipe', {
-        url: '/search/:name',
+        url: '/test',
         templateUrl: 'templates/recipe_detail.html',
         controller: 'RecipeDetailCtrl'
     });

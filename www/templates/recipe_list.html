@@ -93,23 +93,16 @@
         </tr>
       </thead>
       <tbody>
-        <script type="text/javascript">
-          for(var i=0;i<recipes.length; i++) {
-            document.write("<tr>");
-            document.write("<td>AAA</td>");
-            document.write("</tr>");
-          }
-        </script>
         <tr>
-          <td><a href="#/list"><img ng-src="{{recipes[0].img}}" style="width:50%; height: auto;"/></a></td>
+          <td><a href="#/list" ng-click="sendIndex(0)"><img ng-src="{{recipes[0].img}}" style="width:50%; height: auto;"/></a></td>
           <td><h3>{{recipes[0].name}}</h3></td>
         </tr>
         <tr>
-          <td><a href="#/recipe/{{recipes[1].name}}"><img ng-src="{{recipes[1].img}}" style="width:50%; height: auto;"/></a></td>
+          <td><a href="#/list" ng-click="sendIndex(1)"><img ng-src="{{recipes[1].img}}" style="width:50%; height: auto;"/></a></td>
           <td><h3>{{recipes[1].name}}</h3></td>
         </tr>
         <tr>
-          <td><a href="#/recipe/{{recipes[2].name}}"><img ng-src="{{recipes[2].img}}" style="width:50%; height: auto;"/></a></td>
+          <td><a href="#/recipe" ng-click="sendIndex(2)"><img ng-src="{{recipes[2].img}}" style="width:50%; height: auto;"/></a></td>
           <td><h3>{{recipes[2].name}}</h3></td>
         </tr>
         <tr>

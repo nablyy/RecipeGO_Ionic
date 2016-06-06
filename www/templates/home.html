@@ -15,6 +15,18 @@
       <div class="col">
         <button class="button button-full button-energized" ng-click="getImageSaveContact()">Add image</button>
         <img ng-src="{{collection.selectedImage}}" style="width:100%; height: auto;"/>
+        
+        <form id="fileform" action="">
+          <input type="file" name="fileField"><br /><br />
+          <input type="submit" name="submit" id="submit" value="Submit">
+        </form>
+        <!-- <code style="white-space:pre" id="results"></code> -->
+        <!-- <p>{{results.responses.labelAnnotaions.desciption}}</p> -->
+        <!-- <img src="{{ current_image }}" class="picture">
+        <h3 class="text-center" ng-show="image_description">{{ image_description }}</h3>
+        <button class="button button-positive button-block" ng-click="takePicture()">
+        Take Picture
+        </button> -->
       </div>
     </div>
     <div class="row">
@@ -45,7 +57,7 @@
   </ion-content>
   <ion-footer-bar class="bar-energized">
     <div class="title">
-      <a id="1" class="button button-full button-clear button-dark" nav-transition="none" href="#/search">Search</a>
+      <a class="button button-full button-clear button-dark" nav-transition="none" href="#/search">Search</a>
     </div>
   </ion-footer-bar>
 </ion-view>
