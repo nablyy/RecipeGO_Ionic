@@ -1,10 +1,10 @@
 angular.module('recipeGo.services', ['ngResource'])
 
     .factory('Ingredients', function ($resource) {
-        return $resource('/ingredients');
+        return $resource('https://gentle-shelf-38663.herokuapp.com/ingredients');
     })
     .factory('Recipes', function($resource) {
-    	return $resource('/recipes/:name');
+    	return $resource('https://gentle-shelf-38663.herokuapp.com/recipes/:name');
     })
     .factory('$cordovaImagePicker', ['$q', '$window', function ($q, $window) {
 
