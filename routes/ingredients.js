@@ -3,6 +3,7 @@ var Ingredient = require('../models/Ingredient');
 exports.findIngredient_main = function (req, res, next) {
   // 재료 검색창 키워드
   var search_name = req.query.name;
+  var visionResult = req.query.visionResult;
 
   Ingredient.find(function(error, ingredients) {
     if(search_name) {

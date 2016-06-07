@@ -64,8 +64,6 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
           }
         }
       }
-      console.log(temp);
-      console.log('------------');
 
       // 중복제거
       for(var i in temp) {
