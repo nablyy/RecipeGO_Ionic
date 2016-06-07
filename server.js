@@ -2,6 +2,7 @@ var express = require('express'),
 		mongoose = require('mongoose'),
     ingredients = require('./routes/ingredients'),
 		recipes = require('./routes/recipes'),
+		vision = require('./routes/vision'),
     app = express();
 
 // mongodb connect
@@ -19,6 +20,7 @@ app.all('*', function(req, res, next) {
 
 app.get('/ingredients', ingredients.findIngredient_main);
 app.get('/recipes', recipes.searchRecipe);
+app.get('/vision', vision.mappingVision);
 
 app.set('port', process.env.PORT || 5000);
 

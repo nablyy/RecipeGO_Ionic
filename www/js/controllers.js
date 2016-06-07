@@ -35,45 +35,7 @@ angular.module('recipeGo.controllers', [])
       };
   })
 
-  .controller('ThisCtrl', function($scope, $cordovaImagePicker, Ingredients, myService) {
-      // var me = this;
-      // me.current_image = "";
-      // me.detection_type = 'LABEL_DETECTION';
-
-      // me.detection_types = {
-      //   LABEL_DETECTION: 'label',
-      //   TEXT_DETECTION: 'text',
-      //   LOGO_DETECTION: 'logo',
-      //   LANDMARK_DETECTION: 'landmark'
-      // };
-
-      // $scope.collection = {
-      //     selectedImage : ''
-      // };
-      
-      // $scope.getImageSaveContact = function() {  
-      //   var options = {
-      //    maximumImagesCount: 10,
-      //    width: 800,
-      //    height: 800,
-      //    quality: 80
-      //   };
-
-      //   $cordovaImagePicker.getPictures(options)
-      //     .then(function (results) {
-      //       for (var i = 0; i < results.length; i++) {
-      //         console.log('Image URI: ' + results[i]);
-      //         $scope.collection.selectedImage = results[i];
-
-      //         window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){  // Encode URI to Base64 needed for contacts plugin
-      //             $scope.collection.selectedImage = base64;
-      //             $scope.addContact();    // Save contact
-      //         });
-      //       }
-      //     }, function(error) {
-      //       // error getting photos
-      //     });
-      // }
+  .controller('ThisCtrl', function($scope, Vision, myService) {
 
       var CV_URL = "https://vision.googleapis.com/v1/images:annotate?key=" + apiKey;
 
@@ -142,7 +104,7 @@ angular.module('recipeGo.controllers', [])
           myService.set_visionResult(contents);
           console.log(contents)
           ///////////////////////////////////////////////////////서버에 결과 전달
-          $scope.visionResult = Ingredients.query({visionResult: contents});
+          $scope.visionResult = Vision.query({visionResult: contents});
           $("#results").text(contents);
         }
 
@@ -187,6 +149,7 @@ angular.module('recipeGo.controllers', [])
                       ingredients: myService.get_selected_ingredients()
                       });
           myService.set_recipes($scope.recipes);
+          console.log($scope.recipes)
       }
       $scope.sendIndex = function(index) {
           myService.set_index(index);
