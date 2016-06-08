@@ -1,48 +1,79 @@
-<ion-view title="Reports">
+<ion-view title="Recipe">
+  <ion-nav-bar class="bar-subheader">
+    <ion-nav-back-button class="button-icon ion-ios7-arrow-back"></ion-nav-back-button>
+  </ion-nav-bar>
 
-    <!-- <ion-nav-bar class="bar-subheader">
-      <ion-nav-back-button class="button-icon ion-ios7-arrow-back"></ion-nav-back-button>
-    </ion-nav-bar>
+  <ion-content class="has-header has-subheader">
+    <div class="list card">
+      <div class="item item-avatar">
+        <h1>{{recipe.name}}</h1>
+        <p>like: {{recipe.like}}</p>
+      </div>
 
-    <ion-content has-header="true" padding="true">
-
-      <div class="list card">
-        <div class="item item-avatar">
-          <img src=""/>
+      <div class="item item-body">
+        <img class="full-image" src="{{recipe.img}}">
+        <p>재료: {{recipe.main_ingredient}}</p>
+        <p>양념: {{recipe.season_ingredient}}</p>
+        <p>인분: {{recipe.amount}}</p>
+        <p>{{recipe.order_list}}</p>
+        </p>
+      </div>
+    <!-- <div class="bar bar-subheader">
+      <label class="item item-input item-select">
+        <div class="input-label">
+          필요한 재료 개수
         </div>
-      </div> -->
+        <select>
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option selected>4</option>
+        </select>
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          요리 방법
+        </div>
+        <select>
+          <option selected>All</option>
+          <option>밥/죽/스프</option>
+          <option>만두/면류</option>
+          <option>국물요리</option>
+          <option>반찬</option>
+          <option>떡/빵/과자</option>
+          <option>기타</option>
+        </select>
+      </label>
+    </div> -->
 
-        <!-- <div class="list card">
-            <div class="item item-avatar">
-                <img src="pics/{{employee.pic }}"/>
-                <h2>{{employee.firstName}} {{employee.lastName}}</h2>
-                <p>{{employee.title}}</p>
-            </div>
-            <a ng-repeat="report in employee.reports" class="item item-avatar item-icon-left" href="#/employees/{{report.id}}">
-                <img src="pics/{{report.pic }}"/>
-                {{report.firstName}} {{report.lastName}}
-                <p>{{report.title}}</p>
-            </a>
-        </div> -->
-<ion-content has-header="true">
-  <form id="fileform" action="">
-    <select name="type">
-      <option value="LANDMARK_DETECTION">LANDMARK_DETECTION</option>
-      <option value="TYPE_UNSPECIFIED">TYPE_UNSPECIFIED</option>
-      <option value="FACE_DETECTION">FACE_DETECTION</option>
-      <option value="LOGO_DETECTION">LOGO_DETECTION</option>
-      <option value="LABEL_DETECTION">LABEL_DETECTION</option>
-      <option value="TEXT_DETECTION">TEXT_DETECTION</option>
-      <option value="SAFE_SEARCH_DETECTION">SAFE_SEARCH_DETECTION</option>
-      <option value="IMAGE_PROPERTIES">IMAGE_PROPERTIES</option>
-    </select><br />
-    <input type="file" name="fileField"><br /><br />
-    <input type="submit" name="submit" value="Submit">
-  </form>
-
-  <code style="white-space:pre" id="results"></code>
-  <p>{{results.responses.labelAnnotaions.desciption}}</p>
-
-</ion-content>
+  </ion-content>
+      
+      <!-- <ion-content>
+      <div class="row">
+      <div class="list">
+        <a class="item item-thumbnail-left" href="#">
+          <img src="img/13.jpg">
+          <h2>계란말이주먹밥</h2>
+          <p>밥류</p>
+        </a>
+        <a class="item item-thumbnail-left" href="#">
+          <img src="img/12.jpg">
+          <h2>스크램블드에그</h2>
+          <p>양식</p>
+        </a>
+        <a class="item item-thumbnail-left" href="#">
+          <img src="img/14.png">
+          <h2>계란죽</h2>
+          <p>밥류</p>
+        </a>
+        <a class="item item-thumbnail-left" href="#">
+          <img src="img/15.jpg">
+          <h2>홍차계란장조림</h2>
+          <p>반찬</p>
+        </a>
+      </div>
+      </div>
+      </ion-content> -->
 
 </ion-view>

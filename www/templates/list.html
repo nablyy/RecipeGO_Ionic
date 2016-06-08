@@ -6,17 +6,18 @@
   <ion-content class="has-header has-subheader">
     <div class="list card">
       <div class="item item-avatar">
-        <h2>{{recipes[index].name}}</h2>
-        <p>{{recipes[index].field}}</p>
+        <h1>{{recipe.name}}</h1>
+        <p>like: {{recipe.like}}</p>
       </div>
 
       <div class="item item-body">
-        <img class="full-image" src="{{recipes[index].img}}">
-        <p>주재료: {{recipes[index].main}}</p>
-        <p>부재료: {{recipes[index].sub}}</p>
-        <p>양념: {{recipes[index].season}}</p>
-        <p>인분: {{recipes[index].amount}}</p>
-        <p>{{recipes[index].recipe}}</p>
+        <img class="full-image" src="{{recipe.img}}">
+        <p>재료: {{recipe.main_ingredient}}</p>
+        <p>     {{recipe.main_amount}}</p>
+        <p>양념: {{recipe.season_ingredient}}</p>
+        <p>     {{recipe.season_amout}}</p>
+        <p>인분: {{recipe.amount}}</p>
+        <p>{{recipe.order_list}}</p>
         </p>
       </div>
     <!-- <div class="bar bar-subheader">

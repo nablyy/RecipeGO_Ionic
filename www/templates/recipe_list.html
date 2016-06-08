@@ -4,8 +4,8 @@
     <ion-nav-back-button class="button-icon ion-ios7-arrow-back"></ion-nav-back-button>
   </ion-nav-bar>
 
-  <ion-content class="has-header">
-    <!-- <div class="bar bar-subheader">
+  <ion-content class="has-subheader">
+    <div>
       <label class="item item-input item-select">
         <div class="input-label">
           레시피 정렬 순서
@@ -15,120 +15,39 @@
           <option>복잡한순으로</option>
         </select>
       </label>
-      <label class="item item-input item-select">
-        <div class="input-label">
-          요리 방법
-        </div>
-        <select id="categoryFilter" type="setFilter" ng-model="categoryFilter.searchText">
-          <option selected>All</option>
-          <option>밥,죽,스프</option>
-          <option>만두,면류</option>
-          <option>국</option>
-          <option>찌개,전골,탕</option>
-          <option>조림</option>
-          <option>볶음</option>
-          <option>구이</option>
-          <option>튀김,커틀릿</option>
-          <option>부침</option>
-          <option>찜</option>
-          <option>생채,숙채,샐러드</option>
-          <option>김치,밑반찬</option>
-          <option>떡,한과</option>
-          <option>빵,과자</option>
-          <option>도시락,간식</option>
-          <option>음료</option>
-          <option>후식</option>
-          <option>양념장</option>
-          <option>그라탕,리조또</option>
-          <option>샌드위치,햄버거</option>
-          <option>기타</option>
-        </select>
-      </label>
-    </div> -->
-    <h1>a</h1>
+    </div>
 
-    <table style="width:100%" border="1px solid">
-      <thead>
-        <tr>
-          <td>
-            <label class="item item-input item-select">
-              <div class="input-label">레시피 정렬</div>
-              <select id="sortFilter" type="setFilter" ng-model="sortFilter.searchText">
-                <option selected="true">간단한순으로</option>
-                <option>복잡한순으로</option>
-              </select>
-            </label>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label class="item item-input item-select">
-              <div class="input-label">요리 방법</div>
-              <select id="categoryFilter" type="setFilter" ng-model="categoryFilter.searchText">
-                <option selected>All</option>
-                <option>밥,죽,스프</option>recipes
-                <option>만두,면류</option>
-                <option>국</option>
-                <option>찌개,전골,탕</option>
-                <option>조림</option>
-                <option>볶음</option>
-                <option>구이</option>
-                <option>튀김,커틀릿</option>
-                <option>부침</option>
-                <option>찜</option>
-                <option>생채,숙채,샐러드</option>
-                <option>김치,밑반찬</option>
-                <option>떡,한과</option>
-                <option>빵,과자</option>
-                <option>도시락,간식</option>
-                <option>음료</option>
-                <option>후식</option>
-                <option>양념장</option>
-                <option>그라탕,리조또</option>
-                <option>샌드위치,햄버거</option>
-                <option>기타</option>
-              </select>
-            </label>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><a href="#/list" ng-click="sendIndex(0)"><img ng-src="{{recipes[0].img}}" style="width:50%; height: auto;"/></a></td>
-          <td><h3>{{recipes[0].name}}</h3></td>
-        </tr>
-        <tr>
-          <td><a href="#/list" ng-click="sendIndex(1)"><img ng-src="{{recipes[1].img}}" style="width:50%; height: auto;"/></a></td>
-          <td><h3>{{recipes[1].name}}</h3></td>
-        </tr>
-        <tr>
-          <td><a href="#/recipe" ng-click="sendIndex(2)"><img ng-src="{{recipes[2].img}}" style="width:50%; height: auto;"/></a></td>
-          <td><h3>{{recipes[2].name}}</h3></td>
-        </tr>
-        <tr>
-          <td><a href="#/recipe/{{recipes[3].name}}"><img ng-src="{{recipes[3].img}}" style="width:50%; height: auto;"/></a></td>
-          <td><h3>{{recipes[3].name}}</h3></td>
-        </tr>
-        <tr>
-          <td><a href="#/recipe/{{recipes[4].name}}"><img ng-src="{{recipes[4].img}}" style="width:50%; height: auto;"/></a></td>
-          <td><h3>{{recipes[4].name}}</h3></td>
-        </tr>
-        <tr>
-          <td><a href="#/recipe/{{recipes[5].name}}"><img ng-src="{{recipes[5].img}}" style="width:50%; height: auto;"/></a></td>
-          <td><h3>{{recipes[5].name}}</h3></td>
-        </tr>
-        <tr>
-          <td><a href="#/recipe/{{recipes[6].name}}"><img ng-src="{{recipes[6].img}}" style="width:50%; height: auto;"/></a></td>
-          <td><h3>{{recipes[6].name}}</h3></td>
-        </tr>
-      </tbody>
-    </table>
+    <ion-list>
+    <div class="list card" ng-repeat="recipe in recipes" item="recipe" href="#/list" ng-click="sendRecipe(recipe)">
+
+      <div class="item item-avatar">
+        <h2>{{recipe.name}}</h2>
+      </div>
+
+      <div class="item item-image">
+        <img src="{{recipe.img}}">
+      </div>
+
+      <a class="item item-icon-left assertive" href="#">
+        <i class="icon ion-music-note"></i>
+        Show Recipe
+      </a>
+
+    </div>
+    </ion-list>
+
+    <ion-list>
+      <ion-item ng-repeat="recipe in recipes" item="recipe" href="#/list" ng-click="sendRecipe(recipe)" class="item-thumbnail-left">
+        <img ng-src="{{recipe.img}}" style="width:100%; height: auto;"/>
+        <h2>{{recipe.name}}</h2>
+      </ion-item>
+    </ion-list>
 
   </ion-content>
 
   <ion-footer-bar class="bar-energized">
     <div class="title">
-      <a id="2" class="button button-full button-clear button-dark" nav-transition="none" ng-click="setFilter()">Search</a>
+      <a id="2" class="button button-full button-clear button-dark" nav-transition="none" ng-click="setFilter(); myFunction()">레시피 검색</a>
     </div>
   </ion-footer-bar>
 
