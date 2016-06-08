@@ -6,6 +6,7 @@ var schema = new Schema({
   img: {type: String, required: true},
   amount: {type: String, required: true},
   order_count: {type: Number, required: true},
+  ingredient_count: {type: Number, required: true},
   like: {type: Number, default: 0},
   main_ingredient: {type: String, required: true},
   season_ingredient: {type: String, required: true},
