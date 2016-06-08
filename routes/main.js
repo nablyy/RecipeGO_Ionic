@@ -1,7 +1,12 @@
 var Recipe = require('../models/Recipe');
 
+function wrap(callback) {
+  callback();
+}
+
 exports.sortingLikes = function (req, res, next) {
   Recipe.find(function(error, lists){
+    var result = [];
     for (var i = 0; i < lists.length-1; i++) {
       var max = i;
       for (var j = i+1; j < lists.length; j++) {
@@ -15,6 +20,7 @@ exports.sortingLikes = function (req, res, next) {
         lists[max] = tmp;
       }
     }
+    lists.slice(0, 20);
     console.log(lists);
     res.send(lists);
   });
