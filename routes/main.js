@@ -4,7 +4,7 @@ exports.sortingLikes = function (req, res, next) {
   Recipe.find(function(error, lists){
     for (var i = 0; i < lists.length-1; i++) {
       var max = i;
-      for (var j = i+1; j < length; j++) {
+      for (var j = i+1; j < lists.length; j++) {
         if(lists[j].like > lists[max].like) {
           max = j;
         }

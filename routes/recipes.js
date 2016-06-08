@@ -2,6 +2,10 @@ var Recipe_ingredient = require('../models/Recipe_ingredient');
 var Recipe = require('../models/Recipe');
 var	_ = require('lodash');
 
+function wrap(callback) {
+  callback();
+}
+
 exports.searchRecipe = function searchRecipe(req, res, next) {
   var ingredients = [];
   var ingredients_name = [];
@@ -29,6 +33,13 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
   // 재료가 중복 되었을 경우 중복제거
   ingredients = _.uniq(temp, 'id');
   console.log(ingredients);
+
+  for(var i in ingredients) {
+    wrap(function() {
+      ingredients_name[i] = ingredients[i].name;
+    });
+  }
+  console.log(ingredients_name);
 
   // 재료에 해당하는 레시피 탐색
   Recipe_ingredient.find(function(error, lists) {
