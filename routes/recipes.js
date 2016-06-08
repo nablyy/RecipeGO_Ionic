@@ -57,12 +57,11 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
     recipes_id = _.uniq(temp);
     console.log(recipes_id);
 
-    for(var i in recipes_id) {
-
-    }
-
     // 레시피 아이디를 이용하여 레시피 찾기
     Recipe.find(function(error, lists) {
+      var hi = JSON.parse(lists[0]);
+      console.log(hi);
+
       for(var j in lists) {
         for(var i in recipes_id) {
           if(lists[j].id==recipes_id[i]) {

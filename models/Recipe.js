@@ -8,11 +8,11 @@ var schema = new Schema({
   order_count: {type: Number, required: true},
   ingredient_count: {type: Number, required: true},
   like: {type: Number, default: 0},
-  main_ingredient: {type: String, required: true},
-  season_ingredient: {type: String, required: true},
-  main_amount: {type: String, required: true},
-  season_amount: {type: String, required: true},
-  order_list: {type: String, required: true}
+  main_ingredient: [String],
+  season_ingredient: [String],
+  main_amount: [String],
+  season_amount: [String],
+  order_list: [String]
 
 }, {
   toJSON: {virtuals: true},

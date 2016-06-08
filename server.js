@@ -8,7 +8,7 @@ var express = require('express'),
     app = express();
 
 // mongodb connect
-mongoose.connect('mongodb://60132263:dutls123@ds061984.mlab.com:61984/surveyna');
+mongoose.connect('mongodb://recipego:mju12345@ds011902.mlab.com:11902/recipego');
 mongoose.connection.on('error', console.log);
 
 app.use(express.static('www'));
