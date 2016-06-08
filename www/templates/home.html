@@ -1,4 +1,20 @@
 <ion-view title="Home">
 
-  
+  <ion-content class="has-subheader">
+    <ion-list>
+      <div class="list card" ng-repeat="sortedRecipe in sortedRecipes" item="sortedRecipe" href="#/list" ng-click="sendRecipe(sortedRecipe)">
+
+        <div class="item item-image">
+          <a ng-click="sendRecipe(sortedRecipe)" href="#/list"><img src="{{sortedRecipe.img}}"/></a>
+        </div>
+
+        <a class="item item-icon-left assertive" ng-click="sendRecipe(sortedRecipe)" href="#/list">
+          <i class="icon ion-fork"></i>
+          Show Recipe
+        </a>
+
+      </div>
+    </ion-list>
+  <ion-content class="has-subheader">
+
 </ion-view>
