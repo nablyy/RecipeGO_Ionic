@@ -4,7 +4,7 @@ angular.module('recipeGo.services', ['ngResource'])
         return $resource('/ingredients');
     })
     .factory('Recipes', function($resource) {
-    	return $resource('/recipes/:name');
+    	return $resource('/recipes/:recipeId');
     })
     .factory('Vision', function($resource) {
     	return $resource('/vision');

@@ -4,6 +4,7 @@ angular.module('recipeGo.controllers', [])
       var result_recipes = [];
       var recipe_index;
       var visionResult = [];
+      var list_recipe = [];
       return {
           set_selected_ingredients: function(selected) {
               selected_ingredients.push(selected);
@@ -20,22 +21,23 @@ angular.module('recipeGo.controllers', [])
           get_recipes: function() {
               return result_recipes;
           },
-          set_index: function(index) {
-              recipe_index = index;
-          },
-          get_index: function() {
-              return recipe_index;
-          },
           set_visionResult: function(result) {
             visionResult = result;
           },
           get_visionResult: function() {
             return visionResult;
+          },
+          set_recipe: function(recipe) {
+            list_recipe = [];
+            list_recipe = recipe;
+          },
+          get_recipe: function() {
+            return list_recipe;
           }
       };
   })
 
-  .controller('ThisCtrl', function($scope, Vision, myService) {
+  .controller('ThisCtrl', function($scope, Vision, myService, $ionicModal) {
 
       var CV_URL = "https://vision.googleapis.com/v1/images:annotate?key=" + apiKey;
 
@@ -101,41 +103,73 @@ angular.module('recipeGo.controllers', [])
          */
         function displayJSON(data) {
           var contents = JSON.stringify(data, null, 4);
-          myService.set_visionResult(contents);
           console.log(contents)
           ///////////////////////////////////////////////////////서버에 결과 전달
-          $scope.visionResult = Vision.query({visionResult: contents});
+          $scope.visionResults = Vision.query({visionResult: contents});
+          myService.set_visionResult($scope.visionResults);
+          console.log($scope.visionResults)
           $("#results").text(contents);
         }
 
+        $ionicModal.fromTemplateUrl('my-modal.html', {
+          scope: $scope,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          $scope.modal = modal;
+        });
+        $scope.openModal = function() {
+          $scope.visionResults = myService.get_visionResult();
+          $scope.modal.show();
+        };
+        $scope.closeModal = function() {
+          $scope.modal.hide();
+        };
+        // Cleanup the modal when we're done with it!
+        $scope.$on('$destroy', function() {
+          $scope.modal.remove();
+        });
+        // Execute action on hide modal
+        $scope.$on('modal.hidden', function() {
+          // Execute action
+        });
+        // Execute action on remove modal
+        $scope.$on('modal.removed', function() {
+          // Execute action
+        });
+  })
+  .controller('HomeCtrl', function ($scope, myService) {
+
   })
 
-  .controller('HomeCtrl', function ($scope, Ingredients, myService) {
-      $scope.selected_ingredients = [];
-      $scope.searchKey = "";
-      myService.reset_selected_ingredients();
+  .controller('SelectCtrl', function ($scope, Ingredients, myService, $ionicModal) {
+    $scope.visionResults = myService.get_visionResult();
+    $scope.selected_ingredients = [];
+    $scope.searchKey = "";
+    myService.reset_selected_ingredients();
 
-      $scope.clearSearch = function () {
-          $scope.searchKey = "";
-          $scope.ingredients = Ingredients.query();
+    $scope.clearSearch = function () {
+        $scope.searchKey = "";
+        $scope.ingredients = Ingredients.query();
+    }
+
+    $scope.search = function () {
+        console.log($scope.searchKey)
+        $scope.ingredients = Ingredients.query({name: $scope.searchKey});
+    }
+
+    $scope.ingredients = Ingredients.query();
+
+    $scope.addItem = function(ingredient) {
+      console.log(ingredient)
+      if (ingredient.id != null) {
+        myService.set_selected_ingredients(ingredient);
+        $scope.selected_ingredients = myService.get_selected_ingredients();
       }
+    }
 
-      $scope.search = function () {
-          console.log($scope.searchKey)
-          $scope.ingredients = Ingredients.query({name: $scope.searchKey});
-      }
-
-      $scope.ingredients = Ingredients.query();
-
-      $scope.addItem = function(ingredient) {
-          myService.set_selected_ingredients(ingredient);
-          $scope.selected_ingredients = myService.get_selected_ingredients();
-      }
-
-      $scope.onItemDelete = function(selected_ingredient, myService) { 
-          $scope.selected_ingredients.splice($scope.selected_ingredients.indexOf(selected_ingredient), 1);
-      }
-
+    $scope.onItemDelete = function(selected_ingredient, myService) { 
+        $scope.selected_ingredients.splice($scope.selected_ingredients.indexOf(selected_ingredient), 1);
+    }
   })
 
   .controller('SearchCtrl', function($scope, Recipes, myService) {
@@ -151,83 +185,17 @@ angular.module('recipeGo.controllers', [])
           myService.set_recipes($scope.recipes);
           console.log($scope.recipes)
       }
-      $scope.sendIndex = function(index) {
-          myService.set_index(index);
+      $scope.sendRecipe = function(recipe) {
+          myService.set_recipe(recipe);
       }
-      
   })
 
   .controller('ListCtrl', function($scope, Recipes, myService) {
-      $scope.index = myService.get_index();
-      $scope.recipes = myService.get_recipes();
+      $scope.recipe = myService.get_recipe();
 
   })
 
-  .controller('RecipeDetailCtrl', function ($scope, $stateParams, Ingredients) {
-    var CV_URL = "https://vision.googleapis.com/v1/images:annotate?key=" + apiKey;
+  .controller('RecipeDetailCtrl', function ($scope, $stateParams, Recipes) {
 
-    $(document).ready(function() {
-      $('#fileform').on('submit', uploadFiles);
-    });
-
-    /**
-     * 'submit' event handler - reads the image bytes and sends it to the Cloud
-     * Vision API.
-     */
-    function uploadFiles(event) {
-      event.preventDefault(); // Prevent the default form post
-
-      // Grab the file and asynchronously convert to base64.
-      var file = $('#fileform [name=fileField]')[0].files[0];
-      var reader = new FileReader();
-      reader.onloadend = processFile;
-      reader.readAsDataURL(file);
-    }
-
-    /**
-     * Event handler for a file's data url - extract the image data and pass it off.
-     */
-    function processFile(event) {
-      var content = event.target.result;
-      sendFileToCloudVision(
-          content.replace("data:image/jpeg;base64,", ""));
-    }
-
-    /**
-     * Sends the given file contents to the Cloud Vision API and outputs the
-     * results.
-     */
-    function sendFileToCloudVision(content) {
-      var type = $("#fileform [name=type]").val();
-
-      // Strip out the file prefix when you convert to json.
-      var request = {
-        requests: [{
-          image: {
-            content: content
-          },
-          features: [{
-            type: type,
-            maxResults: 200
-          }]
-        }]
-      };
-
-      $('#results').text('Loading...');
-      $.post({
-        url: CV_URL,
-        data: JSON.stringify(request),
-        contentType: 'application/json'
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-          $('#results').text('ERRORS: ' + textStatus + ' ' + errorThrown);
-        }).done(displayJSON);
-      }
-
-      /**
-       * Displays the results.
-       */
-      function displayJSON(data) {
-        var contents = JSON.stringify(data, null, 4);
-        $("#results").text(contents);
-      }
+    $scope.recipe = Recipes.get({recipeId: $stateParams.recipeId});
   });
