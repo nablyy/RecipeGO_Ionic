@@ -160,7 +160,6 @@ angular.module('recipeGo.controllers', [])
     $scope.ingredients = Ingredients.query();
 
     $scope.addItem = function(ingredient) {
-      console.log(ingredient)
       if (ingredient.id != null) {
         myService.set_selected_ingredients(ingredient);
         $scope.selected_ingredients = myService.get_selected_ingredients();
@@ -182,6 +181,7 @@ angular.module('recipeGo.controllers', [])
                       categoryFilter: $scope.categoryFilter.searchText,
                       ingredients: myService.get_selected_ingredients()
                       });
+          // $scope.recipesObj = JSON.parse($scope.recipes);
           myService.set_recipes($scope.recipes);
           console.log($scope.recipes)
       }
@@ -190,8 +190,12 @@ angular.module('recipeGo.controllers', [])
       }
   })
 
-  .controller('ListCtrl', function($scope, Recipes, myService) {
+  .controller('ListCtrl', function($scope, Recipes, myService, Like) {
       $scope.recipe = myService.get_recipe();
+      $scope.sendLike = function(recipe_id) {
+        console.log(recipe_id)
+        $scope.likeRecipe = Like.query({likeRecipe: recipe_id});
+      }
 
   })
 

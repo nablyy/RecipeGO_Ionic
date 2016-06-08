@@ -5,9 +5,10 @@
 
   <ion-content class="has-header has-subheader">
     <div class="list card">
-      <div class="item item-avatar">
-        <h1>{{recipe.name}}</h1>
+      <div class="item item-avatar item-icon-right">
+        <h2>{{recipe.name}}</h2>
         <p>like: {{recipe.like}}</p>
+        <a ng-click="sendLike(recipe.id)"><i class="icon ion-ios-heart-outline"></i></a>
       </div>
 
       <div class="item item-body">

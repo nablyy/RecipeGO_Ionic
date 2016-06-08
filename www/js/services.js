@@ -6,6 +6,9 @@ angular.module('recipeGo.services', ['ngResource'])
     .factory('Recipes', function($resource) {
     	return $resource('/recipes/:recipeId');
     })
+    .factory('Like', function($resource) {
+    	return $resource('/likes');
+    })
     .factory('Vision', function($resource) {
     	return $resource('/vision');
     });

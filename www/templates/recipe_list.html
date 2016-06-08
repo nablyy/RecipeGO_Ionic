@@ -18,36 +18,32 @@
     </div>
 
     <ion-list>
-    <div class="list card" ng-repeat="recipe in recipes" item="recipe" href="#/list" ng-click="sendRecipe(recipe)">
+      <div class="list card" ng-repeat="recipe in recipes" item="recipe" href="#/list" ng-click="sendRecipe(recipe)">
 
-      <div class="item item-avatar">
-        <h2>{{recipe.name}}</h2>
+        <div class="item item-image">
+          <a ng-click="sendRecipe(recipe)" href="#/list"><img src="{{recipe.img}}"/></a>
+        </div>
+
+        <a class="item item-icon-left assertive" ng-click="sendRecipe(recipe)" href="#/list">
+          <i class="icon ion-fork"></i>
+          Show Recipe
+        </a>
+
       </div>
-
-      <div class="item item-image">
-        <img src="{{recipe.img}}">
-      </div>
-
-      <a class="item item-icon-left assertive" href="#">
-        <i class="icon ion-music-note"></i>
-        Show Recipe
-      </a>
-
-    </div>
     </ion-list>
 
-    <ion-list>
+    <!-- <ion-list>
       <ion-item ng-repeat="recipe in recipes" item="recipe" href="#/list" ng-click="sendRecipe(recipe)" class="item-thumbnail-left">
         <img ng-src="{{recipe.img}}" style="width:100%; height: auto;"/>
         <h2>{{recipe.name}}</h2>
       </ion-item>
-    </ion-list>
+    </ion-list> -->
 
   </ion-content>
 
   <ion-footer-bar class="bar-energized">
     <div class="title">
-      <a id="2" class="button button-full button-clear button-dark" nav-transition="none" ng-click="setFilter(); myFunction()">레시피 검색</a>
+      <a id="2" class="button button-full button-clear button-dark" nav-transition="none" ng-click="setFilter()">레시피 검색</a>
     </div>
   </ion-footer-bar>
 
