@@ -147,6 +147,10 @@ angular.module('recipeGo.controllers', [])
   .controller('HomeCtrl', function ($scope, myService, Main) {
     $scope.sortedRecipes = Main.query();
     console.log($scope.sortedRecipes)
+
+    $scope.sendRecipe = function(recipe) {
+          myService.set_recipe(recipe);
+      }
   })
 
   .controller('SelectCtrl', function ($scope, Ingredients, myService, $ionicModal) {

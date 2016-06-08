@@ -8,10 +8,26 @@
           <a ng-click="sendRecipe(sortedRecipe)" href="#/list"><img src="{{sortedRecipe.img}}"/></a>
         </div>
 
-        <a class="item item-icon-left assertive" ng-click="sendRecipe(sortedRecipe)" href="#/list">
+        <div class="item" ng-click="sendRecipe(sortedRecipe)" href="#/list">
+          <div class="row">
+          <div class="col col-80">
+            <a class="item item-icon-left assertive" ng-click="sendRecipe(sortedRecipe)" href="#/list" style="margin: 0px; padding: 0px;">
+              <h2>{{sortedRecipe.name}}</h2>
+            </a>
+          </div>
+          <div class="col col-20">
+            <i class="icon ion-ios-heart-outline"></i>{{sortedRecipe.like}}
+          </div>
+          </div>
+        </div>
+
+        <!-- <a class="item item-icon-left assertive" ng-click="sendRecipe(sortedRecipe)" href="#/list">
           <i class="icon ion-fork"></i>
-          Show Recipe
-        </a>
+          {{sortedRecipe.name}}
+          <div class="item item-icon-right">
+            <i class="icon ion-ios-heart-outline"></i>{{sortedRecipe.like}}
+          </div>
+        </a> -->
 
       </div>
     </ion-list>
