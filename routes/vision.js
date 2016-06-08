@@ -8,16 +8,24 @@ exports.mappingVision = function (req, res, next) {
   var visionResult = req.query.visionResult;
   var parseResult = JSON.parse(visionResult);
 
-  var url = 'http://endic.naver.com/search.nhn?sLn=kr&searchOption=all&query=';
+  // 공백 제거
+  for(var i in parseResult.responses[0].labelAnnotations) {
+    parseResult.responses[0].labelAnnotations[i].description =
+      parseResult.responses[0].labelAnnotations[i].description.replace(' ', "");
+  }
+
+  var base = 'http://endic.naver.com/search.nhn?sLn=kr&searchOption=all&query=';
   var text = [];
+  var url = [];
   var count = [];
 
   for(var i in parseResult.responses[0].labelAnnotations) {
-    url = url+parseResult.responses[0].labelAnnotations[i].description;
+    var url = base+parseResult.responses[0].labelAnnotations[i].description;
+    console.log(url);
     request(url, function(error, response, html){
       if(!error){
         var $ = cheerio.load(html);
-        var temp = $('#content > div:nth-child(4) > dl > dd:nth-child(2) > div > p:nth-child(1) > span.fnt_k05').text();
+        var temp = $('.align_right').children().first().find('.fnt_k05').first().text();
         if(temp!=='') {
           text[text.length] = temp;
         }
