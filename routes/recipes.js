@@ -15,7 +15,7 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
 
   console.log(sortFilter);
 
-  // parse select
+  // 선택한 재료 리스트 파싱
   if(select[0]=='{') {
     temp[0] = JSON.parse(select);
   } else {
@@ -24,7 +24,7 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
     }
   }
 
-  // if ingredient name is duplicate, remove it
+  // 재료 이름이 중복 되었을 경우 중복제거
   for(var i in temp) {
     var check = true;
     if(i===0) {
