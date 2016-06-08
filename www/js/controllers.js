@@ -5,6 +5,7 @@ angular.module('recipeGo.controllers', [])
       var recipe_index;
       var visionResult = [];
       var list_recipe = [];
+      var sorted_recipes = [];
       return {
           set_selected_ingredients: function(selected) {
               selected_ingredients.push(selected);
@@ -33,6 +34,12 @@ angular.module('recipeGo.controllers', [])
           },
           get_recipe: function() {
             return list_recipe;
+          },
+          set_sortedRecipes: function(s_recipes) {
+            sorted_recipes = s_recipes;
+          },
+          get_sortedRecipes: function() {
+            return sorted_recipes;
           }
       };
   })
@@ -137,8 +144,13 @@ angular.module('recipeGo.controllers', [])
           // Execute action
         });
   })
-  .controller('HomeCtrl', function ($scope, myService) {
+  .controller('HomeCtrl', function ($scope, myService, Main) {
+    $scope.sortedRecipes = Main.query();
+    console.log($scope.sortedRecipes)
 
+    $scope.sendRecipe = function(recipe) {
+          myService.set_recipe(recipe);
+      }
   })
 
   .controller('SelectCtrl', function ($scope, Ingredients, myService, $ionicModal) {

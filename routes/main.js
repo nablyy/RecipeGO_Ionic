@@ -20,8 +20,8 @@ exports.sortingLikes = function (req, res, next) {
         lists[max] = tmp;
       }
     }
-    lists.slice(0, 20);
-    console.log(lists);
-    res.send(lists);
+    var result = lists.slice(0, 20);
+    console.log(result);
+    res.send(result);
   });
 }
