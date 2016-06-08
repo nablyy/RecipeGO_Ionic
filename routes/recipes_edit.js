@@ -1,6 +1,5 @@
 var Recipe_ingredient = require('../models/Recipe_ingredient');
 var Recipe = require('../models/Recipe');
-var	_ = require('lodash');
 
 exports.searchRecipe = function searchRecipe(req, res, next) {
   var ingredients = [];
@@ -25,11 +24,23 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
     }
   }
 
-  // 재료가 중복 되었을 경우 중복제거
-  ingredients = _.uniq(temp, 'id');
+  // 재료 이름이 중복 되었을 경우 중복제거
+  for(var i in temp) {
+    var check = true;
+    if(i===0) {
+      ingredients[i]=temp[i];
+    }
+    for(var j in ingredients) {
+      if(temp[i].name===ingredients[j].name) {
+        check = false;
+      }
+    }
+    if(check!==false){
+      ingredients[ingredients.length] = temp[i];
+    }
+  }
   console.log(ingredients);
 
-  // 재료에 해당하는 레시피 탐색
   Recipe_ingredient.find(function(error, lists) {
     var temp = [];
     for(var j in lists) {
@@ -41,8 +52,20 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
     }
 
     // 중복제거
-    recipes_id = _.uniq(temp);
-    console.log(recipes_id);
+    for(var i in temp) {
+      var check = true;
+      if(i===0) {
+        recipes_id[i]=temp[i];
+      }
+      for(var j in recipes_id) {
+        if(temp[i]===recipes_id[j]) {
+          check = false;
+        }
+      }
+      if(check!==false){
+        recipes_id[recipes_id.length] = temp[i];
+      }
+    }
 
     // 레시피 아이디를 이용하여 레시피 찾기
     Recipe.find(function(error, lists) {
