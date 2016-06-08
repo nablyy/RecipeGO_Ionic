@@ -34,6 +34,7 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
   ingredients = _.uniq(temp, 'id');
   console.log(ingredients);
 
+  // 재료 이름 배열 추가
   for(var i in ingredients) {
     wrap(function() {
       ingredients_name[i] = ingredients[i].name;
@@ -94,7 +95,7 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
               max = j;
             }
           }
-          if(min != i) {
+          if(max != i) {
             var tmp = recipes[i];
             recipes[i] = recipes[max];
             recipes[max] = tmp;

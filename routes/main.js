@@ -9,7 +9,7 @@ exports.sortingLikes = function (req, res, next) {
           max = j;
         }
       }
-      if(min != i) {
+      if(max != i) {
         var tmp = lists[i];
         lists[i] = lists[max];
         lists[max] = tmp;
