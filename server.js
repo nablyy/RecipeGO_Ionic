@@ -4,6 +4,7 @@ var express = require('express'),
 		recipes = require('./routes/recipes'),
 		vision = require('./routes/vision'),
 		likes = require('./routes/likes'),
+		main = require('./routes/main'),
     app = express();
 
 // mongodb connect
@@ -23,7 +24,7 @@ app.get('/ingredients', ingredients.findIngredient_main);
 app.get('/recipes', recipes.searchRecipe);
 app.get('/vision', vision.mappingVision);
 app.get('/likes', likes.addLikes);
-app.get('/likes', likes.sortingLikes);
+app.get('/main', main.sortingLikes);
 
 app.set('port', process.env.PORT || 5000);
 

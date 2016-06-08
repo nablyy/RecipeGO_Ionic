@@ -4,6 +4,7 @@ var	_ = require('lodash');
 
 exports.searchRecipe = function searchRecipe(req, res, next) {
   var ingredients = [];
+  var ingredients_name = [];
   var recipes_id = [];
   var recipes = [];
 
@@ -43,6 +44,10 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
     // 중복제거
     recipes_id = _.uniq(temp);
     console.log(recipes_id);
+
+    for(var i in recipes_id) {
+
+    }
 
     // 레시피 아이디를 이용하여 레시피 찾기
     Recipe.find(function(error, lists) {
