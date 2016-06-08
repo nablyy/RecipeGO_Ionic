@@ -45,6 +45,11 @@ angular.module('recipeGo', ['ionic', 'recipeGo.controllers', 'recipeGo.services'
       templateUrl: 'templates/home.html',
       controller: 'HomeCtrl'
     })
+    .state('select', {
+      url: '/select',
+      templateUrl: 'templates/select.html',
+      controller: 'SelectCtrl'
+    })
     .state('list', {
       url: '/list',
       templateUrl: 'templates/list.html',
@@ -57,7 +62,7 @@ angular.module('recipeGo', ['ionic', 'recipeGo.controllers', 'recipeGo.services'
     })
 
     .state('recipe', {
-        url: '/test',
+        url: '/recipe/:recipeId',
         templateUrl: 'templates/recipe_detail.html',
         controller: 'RecipeDetailCtrl'
     });
