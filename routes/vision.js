@@ -3,6 +3,10 @@ var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
 
+function wrap(callback) {
+  callback();
+}
+
 exports.mappingVision = function (req, res, next) {
 
   var visionResult = req.query.visionResult;
@@ -16,6 +20,7 @@ exports.mappingVision = function (req, res, next) {
 
   var base = 'http://endic.naver.com/search.nhn?sLn=kr&searchOption=all&query=';
   var text = [];
+  var result = [];
   var url = [];
   var count = [];
 
@@ -32,8 +37,25 @@ exports.mappingVision = function (req, res, next) {
         count[count.length] = temp;
       }
       if(count.length===parseResult.responses[0].labelAnnotations.length) {
-        console.log(text);
-        res.send(text);
+        for(var i in text) {
+          wrap(function() {
+            var empty = {"name":null, "id":null};
+            empty.name = text[i];
+            result[i] = empty;
+          });
+        }
+        Ingredient.find(function(error, lists) {
+          for(var i in lists) {
+            for(var j in result) {
+              if(lists[i].name===result[j].name) {
+                console.log('same!! '+lists[i].name+' : '+text[j]);
+                result[j].id = lists[i].id;
+              }
+            }
+          }
+          console.log(result);
+          res.send(result);
+        });
       }
     });
   }

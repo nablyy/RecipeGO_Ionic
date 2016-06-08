@@ -1,11 +1,8 @@
-var Ingredient = require('../models/Ingredient');
 var Recipe_ingredient = require('../models/Recipe_ingredient');
 var Recipe = require('../models/Recipe');
 
 exports.searchRecipe = function searchRecipe(req, res, next) {
   var ingredients = [];
-  var ingredients_id = [];
-  var ingredients_name = [];
   var recipes_id = [];
   var recipes = [];
 
@@ -43,89 +40,76 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
     }
   }
 
-  Ingredient.find(function(error, lists) {
+  Recipe_ingredient.find(function(error, lists) {
+    var temp = [];
     for(var j in lists) {
       for(var i in ingredients) {
-        if(lists[j].name==ingredients[i].name) {
-          ingredients_name[ingredients_name.length] = lists[j].name;
-          ingredients_id[ingredients_id.length] = lists[j].id;
+        if(lists[j].ingredient_id==ingredients.id[i]) {
+          temp[temp.length] = lists[j].recipe_id;
         }
       }
     }
-    console.log(ingredients_id);
-    console.log(ingredients_name);
-    console.log('--------------');
-    Recipe_ingredient.find(function(error, lists) {
-      var temp = [];
+
+    // 중복제거
+    for(var i in temp) {
+      var check = true;
+      if(i===0) {
+        recipes_id[i]=temp[i];
+      }
+      for(var j in recipes_id) {
+        if(temp[i]===recipes_id[j]) {
+          check = false;
+        }
+      }
+      if(check!==false){
+        recipes_id[recipes_id.length] = temp[i];
+      }
+    }
+
+    // 레시피 아이디를 이용하여 레시피 찾기
+    Recipe.find(function(error, lists) {
       for(var j in lists) {
-        for(var i in ingredients_id) {
-          if(lists[j].ingredient_id==ingredients_id[i]) {
-            temp[temp.length] = lists[j].recipe_id;
+        for(var i in recipes_id) {
+          if(lists[j].id==recipes_id[i]) {
+            recipes[recipes.length] = lists[j];
           }
         }
       }
 
-      // 중복제거
-      for(var i in temp) {
-        var check = true;
-        if(i===0) {
-          recipes_id[i]=temp[i];
-        }
-        for(var j in recipes_id) {
-          if(temp[i]===recipes_id[j]) {
-            check = false;
+      // 순서 필터 적용
+      var length = recipes.length;
+      if(sortFilter=='간단한순으로') {
+        for (var i = 0; i < length-1; i++) {
+          var min = i;
+          for (var j = i+1; j < length; j++) {
+            if(recipes[j].order_count < recipes[min].order_count) {
+              min = j;
+            }
+          }
+          if(min != i) {
+            var tmp = recipes[i];
+            recipes[i] = recipes[min];
+            recipes[min] = tmp;
           }
         }
-        if(check!==false){
-          recipes_id[recipes_id.length] = temp[i];
+      } else if(sortFilter=='복잡한순으로') {
+        for (var i = 0; i < length-1; i++) {
+          var max = i;
+          for (var j = i+1; j < length; j++) {
+            if(recipes[j].order_count > recipes[max].order_count) {
+              max = j;
+            }
+          }
+          if(min != i) {
+            var tmp = recipes[i];
+            recipes[i] = recipes[max];
+            recipes[max] = tmp;
+          }
         }
       }
+      console.log(recipes);
+      res.send(recipes);
 
-      // 레시피 아이디를 이용하여 레시피 찾기
-      Recipe.find(function(error, lists) {
-        for(var j in lists) {
-          for(var i in recipes_id) {
-            if(lists[j].id==recipes_id[i]) {
-              recipes[recipes.length] = lists[j];
-            }
-          }
-        }
-
-        // 순서 필터 적용
-        var length = recipes.length;
-        if(sortFilter=='간단한순으로') {
-          for (var i = 0; i < length-1; i++) {
-            var min = i;
-            for (var j = i+1; j < length; j++) {
-              if(recipes[j].order_count < recipes[min].order_count) {
-                min = j;
-              }
-            }
-            if(min != i) {
-              var tmp = recipes[i];
-              recipes[i] = recipes[min];
-              recipes[min] = tmp;
-            }
-          }
-        } else if(sortFilter=='복잡한순으로') {
-          for (var i = 0; i < length-1; i++) {
-            var max = i;
-            for (var j = i+1; j < length; j++) {
-              if(recipes[j].order_count > recipes[max].order_count) {
-                max = j;
-              }
-            }
-            if(min != i) {
-              var tmp = recipes[i];
-              recipes[i] = recipes[max];
-              recipes[max] = tmp;
-            }
-          }
-        }
-        console.log(recipes);
-        res.send(recipes);
-
-      });
     });
   });
 
