@@ -26,8 +26,12 @@
         <p>양념: {{recipe.season_ingredient}}</p>
         <p>     {{recipe.season_amout}}</p>
         <p>인분: {{recipe.amount}}</p>
-        <p>{{recipe.order_list}}</p>
-        </p>
+
+        <ion-list>
+          <ion-item ng-repeat="order in recipe.order_list" item="order" class="item-thumbnail-left" type="item-text-wrap">
+          {{order}}
+          </ion-item>
+        </ion-list>
       </div>
     <!-- <div class="bar bar-subheader">
       <label class="item item-input item-select">
@@ -59,6 +63,12 @@
     </div> -->
 
   </ion-content>
+  <script type="text/javascript">
+    var div_test = document.getElementById('ingredient');
+    for (var i = 0; i < recipe.ingredient_count; i++) {
+      div_test.innerHTML = "<p>{{recipe.main_ingredient[i]}}</p>";
+    }
+  </script>
       
       <!-- <ion-content>
       <div class="row">

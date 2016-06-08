@@ -21,23 +21,31 @@
       <div class="list card" ng-repeat="recipe in recipes" item="recipe" href="#/list" ng-click="sendRecipe(recipe)">
 
         <div class="item item-image">
-          <a ng-click="sendRecipe(recipe)" href="#/list"><img src="{{recipe.img}}"/></a>
+          <a href="#/list" ng-click="sendRecipe(recipe)"><img src="{{recipe.img}}"></a>
         </div>
 
-        <a class="item item-icon-left assertive" ng-click="sendRecipe(recipe)" href="#/list">
-          <i class="icon ion-fork"></i>
-          Show Recipe
-        </a>
-
+        <div class="item" ng-click="sendRecipe(recipe)" href="#/list">
+          <div class="row">
+            <div class="col col-80">
+              <a class="item item-icon-left assertive" ng-click="sendRecipe(recipe)" href="#/list" style="margin: 0px; padding: 0px;">
+              <h2>{{recipe.name}}</h2>
+              </a>
+            </div>
+            <div class="col col-20">
+              <i class="icon ion-ios-heart-outline"></i>
+              {{recipe.like}}
+            </div>
+          </div>
+        </div>
       </div>
     </ion-list>
 
-    <!-- <ion-list>
+    <ion-list>
       <ion-item ng-repeat="recipe in recipes" item="recipe" href="#/list" ng-click="sendRecipe(recipe)" class="item-thumbnail-left">
         <img ng-src="{{recipe.img}}" style="width:100%; height: auto;"/>
         <h2>{{recipe.name}}</h2>
       </ion-item>
-    </ion-list> -->
+    </ion-list>
 
   </ion-content>
 
