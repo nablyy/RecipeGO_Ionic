@@ -39,12 +39,13 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
       ingredients[ingredients.length] = temp[i];
     }
   }
+  console.log(ingredients);
 
   Recipe_ingredient.find(function(error, lists) {
     var temp = [];
     for(var j in lists) {
       for(var i in ingredients) {
-        if(lists[j].ingredient_id==ingredients.id[i]) {
+        if(lists[j].ingredient_id==ingredients[i].id) {
           temp[temp.length] = lists[j].recipe_id;
         }
       }
