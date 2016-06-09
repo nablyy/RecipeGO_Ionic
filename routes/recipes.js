@@ -1,10 +1,49 @@
 var Recipe_ingredient = require('../models/Recipe_ingredient');
 var Recipe = require('../models/Recipe');
+var	_ = require('lodash');
+
+function sortComplex(length, recipes, callback) {
+  for (var i = 0; i < length-1; i++) {
+    var max = i;
+    for (var j = i+1; j < length; j++) {
+      if(recipes[j].order_count > recipes[max].order_count) {
+        max = j;
+      }
+    }
+    if(min != i) {
+      var tmp = recipes[i];
+      recipes[i] = recipes[max];
+      recipes[max] = tmp;
+    }
+  }
+  callback(recipes);
+}
+
+function sortEasy(length, recipes, callback) {
+  for (var i = 0; i < length-1; i++) {
+    var min = i;
+    for (var j = i+1; j < length; j++) {
+      if(recipes[j].order_count < recipes[min].order_count) {
+        min = j;
+      }
+    }
+    if(min != i) {
+      var tmp = recipes[i];
+      recipes[i] = recipes[min];
+      recipes[min] = tmp;
+    }
+  }
+  callback(recipes);
+}
 
 exports.searchRecipe = function searchRecipe(req, res, next) {
   var ingredients = [];
+  var ingredients_name = [];
   var recipes_id = [];
   var recipes = [];
+  var allRecipes = [];
+  var partRecipes = [];
+  var result = [];
 
   var select = [];
   var sortFilter = [];
@@ -39,7 +78,11 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
       ingredients[ingredients.length] = temp[i];
     }
   }
-  console.log(ingredients);
+  // 재료 이름 배열 추가
+  for(var i in ingredients) {
+    ingredients_name[i] = ingredients[i].name;
+  }
+  console.log('name: '+ingredients_name);
 
   Recipe_ingredient.find(function(error, lists) {
     var temp = [];
@@ -77,40 +120,44 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
         }
       }
 
-      // 순서 필터 적용
-      var length = recipes.length;
-      if(sortFilter=='간단한순으로') {
-        for (var i = 0; i < length-1; i++) {
-          var min = i;
-          for (var j = i+1; j < length; j++) {
-            if(recipes[j].order_count < recipes[min].order_count) {
-              min = j;
-            }
-          }
-          if(min != i) {
-            var tmp = recipes[i];
-            recipes[i] = recipes[min];
-            recipes[min] = tmp;
+      for(var i in recipes) {
+        var checkSum = [];
+        for(var j in ingredients_name) {
+          var check = _.includes(recipes[i].main_ingredient, ingredients_name[j]);
+          if(check===true) {
+            checkSum[checkSum.length] = true;
           }
         }
-      } else if(sortFilter=='복잡한순으로') {
-        for (var i = 0; i < length-1; i++) {
-          var max = i;
-          for (var j = i+1; j < length; j++) {
-            if(recipes[j].order_count > recipes[max].order_count) {
-              max = j;
-            }
-          }
-          if(min != i) {
-            var tmp = recipes[i];
-            recipes[i] = recipes[max];
-            recipes[max] = tmp;
-          }
+        console.log(ingredients_name.length);
+        if(checkSum.length===ingredients_name.length) {
+          console.log('same: '+checkSum.length+':'+ingredients_name.length);
+          allRecipes[allRecipes.length] = recipes[i];
+        } else {
+          console.log('nonono: '+checkSum.length+':'+ingredients_name.length);
+          partRecipes[partRecipes.length] = recipes[i];
         }
       }
-      console.log(recipes);
-      res.send(recipes);
+      console.log(allRecipes.length);
+      console.log(partRecipes.length);
 
+      // 순서 필터 적용
+      if(sortFilter=='간단한순으로') {
+        sortEasy(allRecipes.length, allRecipes, function(recipes) {
+          allRecipes = recipes;
+        });
+        sortEasy(partRecipes.length, partRecipes, function(recipes) {
+          partRecipes = recipes;
+        });
+      } else if(sortFilter=='복잡한순으로') {
+        sortComplex(allRecipes.length, allRecipes, function(recipes) {
+          allRecipes = recipes;
+        });
+        sortComplex(partRecipes.length, partRecipes, function(recipes) {
+          partRecipes = recipes;
+        });
+      }
+      var result = allRecipes.concat(partRecipes);
+      res.send(result);
     });
   });
 

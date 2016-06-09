@@ -1,10 +1,8 @@
 var Recipe_ingredient = require('../models/Recipe_ingredient');
 var Recipe = require('../models/Recipe');
-var	_ = require('lodash');
 
 exports.searchRecipe = function searchRecipe(req, res, next) {
   var ingredients = [];
-  var ingredients_name = [];
   var recipes_id = [];
   var recipes = [];
 
@@ -41,11 +39,7 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
       ingredients[ingredients.length] = temp[i];
     }
   }
-  // 재료 이름 배열 추가
-  for(var i in ingredients) {
-    ingredients_name[i] = ingredients[i].name;
-  }
-  console.log('name: '+ingredients_name);
+  console.log(ingredients);
 
   Recipe_ingredient.find(function(error, lists) {
     var temp = [];
@@ -83,22 +77,6 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
         }
       }
 
-      var checkSum = [];
-      for(var i in recipes) {
-        for(var j in ingredients_name) {
-          var check = _.includes(recipes[i].main_ingredient, ingredients_name[j]);
-          if(check===true) {
-            checkSum[checkSum.length] = true;
-          }
-          console.log(ingredients_name);
-        }
-        if(checkSum.length===ingredients_name.length) {
-          console.log(checkSum.length+':'+ingredients_name.length);
-        } else {
-          console.log(checkSum.length+':'+ingredients_name.length);
-        }
-      }
-
       // 순서 필터 적용
       var length = recipes.length;
       if(sortFilter=='간단한순으로') {
@@ -130,7 +108,7 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
           }
         }
       }
-      console.log(recipes.length);
+      console.log(recipes);
       res.send(recipes);
 
     });
