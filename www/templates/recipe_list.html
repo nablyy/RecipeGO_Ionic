@@ -40,13 +40,6 @@
       </div>
     </ion-list>
 
-    <ion-list>
-      <ion-item ng-repeat="recipe in recipes" item="recipe" href="#/list" ng-click="sendRecipe(recipe)" class="item-thumbnail-left">
-        <img ng-src="{{recipe.img}}" style="width:100%; height: auto;"/>
-        <h2>{{recipe.name}}</h2>
-      </ion-item>
-    </ion-list>
-
   </ion-content>
 
   <ion-footer-bar class="bar-energized">
