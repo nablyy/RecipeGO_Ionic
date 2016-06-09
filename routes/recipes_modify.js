@@ -1,10 +1,19 @@
 var Recipe_ingredient = require('../models/Recipe_ingredient');
 var Recipe = require('../models/Recipe');
+var	_ = require('lodash');
+
+function wrap(callback) {
+  callback();
+}
 
 exports.searchRecipe = function searchRecipe(req, res, next) {
   var ingredients = [];
+  var ingredients_name = [];
   var recipes_id = [];
   var recipes = [];
+  var allRecipes = [];
+  var otherRecipes = [];
+  var checkResult = [];
 
   var select = [];
   var sortFilter = [];
@@ -24,23 +33,17 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
     }
   }
 
-  // 재료 이름이 중복 되었을 경우 중복제거
-  for(var i in temp) {
-    var check = true;
-    if(i===0) {
-      ingredients[i]=temp[i];
-    }
-    for(var j in ingredients) {
-      if(temp[i].name===ingredients[j].name) {
-        check = false;
-      }
-    }
-    if(check!==false){
-      ingredients[ingredients.length] = temp[i];
-    }
-  }
+  // 재료가 중복 되었을 경우 중복제거
+  ingredients = _.uniq(temp, 'id');
   console.log(ingredients);
 
+  // 재료 이름 배열 추가
+  for(var i in ingredients) {
+    ingredients_name[i] = ingredients[i].name;
+  }
+  console.log(ingredients_name);
+
+  // 재료에 해당하는 레시피 탐색
   Recipe_ingredient.find(function(error, lists) {
     var temp = [];
     for(var j in lists) {
@@ -52,20 +55,8 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
     }
 
     // 중복제거
-    for(var i in temp) {
-      var check = true;
-      if(i===0) {
-        recipes_id[i]=temp[i];
-      }
-      for(var j in recipes_id) {
-        if(temp[i]===recipes_id[j]) {
-          check = false;
-        }
-      }
-      if(check!==false){
-        recipes_id[recipes_id.length] = temp[i];
-      }
-    }
+    recipes_id = _.uniq(temp);
+    console.log(recipes_id);
 
     // 레시피 아이디를 이용하여 레시피 찾기
     Recipe.find(function(error, lists) {
@@ -76,6 +67,20 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
           }
         }
       }
+      console.log('recipe length: '+recipes.length);
+
+      for(var i in recipes) {
+        for(var j in ) {
+
+        }
+      }
+      // allRecipes = _.uniq(allRecipes, 'id');
+      // otherRecipes = _.uniq(otherRecipes, 'id');
+      // console.log('======================================');
+      // console.log(allRecipes);
+      // console.log(allRecipes.length);
+      // console.log('======================================');
+      // console.log(otherRecipes.length);
 
       // 순서 필터 적용
       var length = recipes.length;
@@ -101,14 +106,13 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
               max = j;
             }
           }
-          if(min != i) {
+          if(max != i) {
             var tmp = recipes[i];
             recipes[i] = recipes[max];
             recipes[max] = tmp;
           }
         }
       }
-      console.log(recipes);
       res.send(recipes);
 
     });
