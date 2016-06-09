@@ -6,11 +6,22 @@ function wrap(callback) {
   callback();
 }
 
+function checkRecipe(i, j, recipes, ingredients_name, callback) {
+  if(i<ingredients_name.length) {
+    var check = _.includes(recipes[i].main_ingredient, ingredients_name[j]);
+    if(check === true) {
+      checkRecipe(i, j+1, recipes, ingredients_name, callback);
+    }
+  }
+  callback(check);
+}
+
 exports.searchRecipe = function searchRecipe(req, res, next) {
   var ingredients = [];
   var ingredients_name = [];
   var recipes_id = [];
   var recipes = [];
+  var allRecipes = [];
 
   var select = [];
   var sortFilter = [];
@@ -68,6 +79,23 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
         }
       }
 
+      for(var i in recipes) {
+        checkRecipe(i, 0, recipes, ingredients_name, function(check) {
+          if(check===true) {
+            allRecipes[allRecipes.length] = recipes[i];
+          }
+        });
+      }
+      allRecipes = _.uniq(allRecipes, 'id');
+
+      for(var j in lists) {
+        for(var i in recipes_id) {
+          if(lists[j].id==recipes_id[i]) {
+            recipes[recipes.length] = lists[j];
+          }
+        }
+      }
+
       // 순서 필터 적용
       var length = recipes.length;
       if(sortFilter=='간단한순으로') {
@@ -99,7 +127,6 @@ exports.searchRecipe = function searchRecipe(req, res, next) {
           }
         }
       }
-      console.log(recipes);
       res.send(recipes);
 
     });
