@@ -7,6 +7,7 @@ function wrap(callback) {
   callback();
 }
 
+// 비전
 exports.mappingVision = function (req, res, next) {
 
   var visionResult = req.query.visionResult;
