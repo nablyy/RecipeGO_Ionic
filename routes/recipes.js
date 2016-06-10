@@ -10,7 +10,7 @@ function sortComplex(length, recipes, callback) {
         max = j;
       }
     }
-    if(min != i) {
+    if(max != i) {
       var tmp = recipes[i];
       recipes[i] = recipes[max];
       recipes[max] = tmp;
