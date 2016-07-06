@@ -75,7 +75,3 @@ Server Side: Node.js, Express.js, MongoDB
 # System Architecture
 
 <img src = "http://postfiles11.naver.net/20160707_106/gongsuni94_1467824823891BFuBP_JPEG/RecipeGO1.png?type=w1">
-
-# Database Architecture
-
-<img src = "http://postfiles2.naver.net/20160707_33/gongsuni94_1467824824181jTerg_PNG/RecipeGO2.png?type=w1">
